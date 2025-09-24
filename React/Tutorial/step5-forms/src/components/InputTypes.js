@@ -26,6 +26,52 @@ function InputTypesDemo() {
   });
 
   const [submittedData, setSubmittedData] = useState(null);
+  const [errors, setErrors] = useState({});
+
+  // 기본 검증 함수
+  const validateField = (name, value) => {
+    const newErrors = { ...errors };
+
+    switch (name) {
+      case 'email':
+        if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          newErrors.email = '올바른 이메일 형식이 아닙니다.';
+        } else {
+          delete newErrors.email;
+        }
+        break;
+      case 'tel':
+        if (
+          value &&
+          !/^01[0-9]-?\d{3,4}-?\d{4}$/.test(value.replace(/\s/g, ''))
+        ) {
+          newErrors.tel =
+            '올바른 전화번호 형식이 아닙니다. (예: 010-1234-5678)';
+        } else {
+          delete newErrors.tel;
+        }
+        break;
+      case 'url':
+        if (value && !/^https?:\/\/.+/.test(value)) {
+          newErrors.url =
+            '올바른 URL 형식이 아닙니다. (http:// 또는 https://로 시작)';
+        } else {
+          delete newErrors.url;
+        }
+        break;
+      case 'number':
+        if (value && (isNaN(value) || value < 0 || value > 100)) {
+          newErrors.number = '0-100 사이의 숫자를 입력하세요.';
+        } else {
+          delete newErrors.number;
+        }
+        break;
+      default:
+        break;
+    }
+
+    setErrors(newErrors);
+  };
 
   const handleInputChange = e => {
     const { name, value, type, checked, files } = e.target;
@@ -43,6 +89,9 @@ function InputTypesDemo() {
       ...prev,
       [name]: fieldValue,
     }));
+
+    // 검증 실행
+    validateField(name, fieldValue);
   };
 
   const handleSubmit = e => {
@@ -75,6 +124,7 @@ function InputTypesDemo() {
       hidden: 'hidden-value',
     });
     setSubmittedData(null);
+    setErrors({});
   };
 
   return (
@@ -109,7 +159,11 @@ function InputTypesDemo() {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder='이메일을 입력하세요'
+                style={{
+                  borderColor: errors.email ? '#dc3545' : '#ddd',
+                }}
               />
+              {errors.email && <div className='error'>{errors.email}</div>}
             </div>
 
             <div className='form-group'>
@@ -136,7 +190,11 @@ function InputTypesDemo() {
                 min='0'
                 max='100'
                 step='1'
+                style={{
+                  borderColor: errors.number ? '#dc3545' : '#ddd',
+                }}
               />
+              {errors.number && <div className='error'>{errors.number}</div>}
             </div>
 
             <div className='form-group'>
@@ -148,7 +206,11 @@ function InputTypesDemo() {
                 value={formData.tel}
                 onChange={handleInputChange}
                 placeholder='010-1234-5678'
+                style={{
+                  borderColor: errors.tel ? '#dc3545' : '#ddd',
+                }}
               />
+              {errors.tel && <div className='error'>{errors.tel}</div>}
             </div>
 
             <div className='form-group'>
@@ -160,7 +222,11 @@ function InputTypesDemo() {
                 value={formData.url}
                 onChange={handleInputChange}
                 placeholder='https://example.com'
+                style={{
+                  borderColor: errors.url ? '#dc3545' : '#ddd',
+                }}
               />
+              {errors.url && <div className='error'>{errors.url}</div>}
             </div>
 
             <div className='form-group'>
