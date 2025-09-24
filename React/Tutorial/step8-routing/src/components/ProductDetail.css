@@ -1,0 +1,130 @@
+.product-detail {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.product-detail h2 {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.product-info {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  border-left: 4px solid #28a745;
+}
+
+.product-info h3 {
+  color: #333;
+  margin: 0 0 15px 0;
+  font-size: 24px;
+}
+
+.product-info .price {
+  color: #28a745;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0 0 10px 0;
+}
+
+.product-info .category {
+  color: #666;
+  font-size: 16px;
+  margin: 0 0 15px 0;
+}
+
+.product-info .description {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.back-button {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #5a6268;
+}
+
+.home-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.home-link:hover {
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+}
+
+.error {
+  text-align: center;
+  padding: 40px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  color: #721c24;
+}
+
+.error h2 {
+  color: #721c24;
+  margin-bottom: 15px;
+}
+
+.error p {
+  margin-bottom: 20px;
+}
+
+.code-example {
+  margin: 15px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.code-example pre {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  overflow: auto;
+  font-size: 14px;
+  font-family: monospace;
+  border: 1px solid #e9ecef;
+  margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .actions {
+    flex-direction: column;
+  }
+
+  .back-button,
+  .home-link {
+    text-align: center;
+  }
+}
