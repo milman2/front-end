@@ -25,9 +25,20 @@ function HelloWorld() {
 
       <div className="code-example">
         <strong>Hello World 예제:</strong><br/>
-        {`function HelloWorld() {
+        <pre style={{ 
+          background: '#f8f9fa', 
+          padding: '15px', 
+          borderRadius: '6px', 
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`function HelloWorld() {
   return <h1>Hello, React World!</h1>;
 }`}
+        </pre>
       </div>
 
       <h3>실제 결과:</h3>

@@ -163,7 +163,17 @@ function UseEffectExample() {
 
       <div className="code-example">
         <strong>useEffect 기본 문법:</strong><br/>
-        {`import React, { useState, useEffect } from 'react';
+        <pre style={{ 
+          background: '#f8f9fa', 
+          padding: '15px', 
+          borderRadius: '6px', 
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`import React, { useState, useEffect } from 'react';
 
 function MyComponent() {
   const [data, setData] = useState(null);
@@ -180,6 +190,7 @@ function MyComponent() {
 
   return <div>{data}</div>;
 }`}
+        </pre>
       </div>
 
       <Timer />

@@ -67,7 +67,17 @@ function ComponentBasics() {
 
       <div className="code-example">
         <strong>함수형 컴포넌트 예제:</strong><br/>
-        {`function WelcomeMessage({ name, title }) {
+        <pre style={{ 
+          background: '#f8f9fa', 
+          padding: '15px', 
+          borderRadius: '6px', 
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`function WelcomeMessage({ name, title }) {
   return (
     <div>
       <h3>환영합니다, {name}님!</h3>
@@ -75,6 +85,7 @@ function ComponentBasics() {
     </div>
   );
 }`}
+        </pre>
       </div>
 
       <h3>컴포넌트 사용 예제:</h3>

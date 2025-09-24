@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // 함수형 컴포넌트 예제
 // React 16.8 이후부터는 함수형 컴포넌트에서도 Hooks를 사용할 수 있어서
@@ -14,8 +14,21 @@ function FunctionComponent() {
       </p>
 
       <div className="code-example">
-        <strong>함수형 컴포넌트 예제:</strong><br/>
-        {`function FunctionComponent() {
+        <strong>함수형 컴포넌트 예제:</strong>
+        <br />
+        <pre
+          style={{
+            background: "#f8f9fa",
+            padding: "15px",
+            borderRadius: "6px",
+            overflow: "auto",
+            fontSize: "14px",
+            fontFamily: "monospace",
+            border: "1px solid #e9ecef",
+            margin: "10px 0",
+          }}
+        >
+          {`function FunctionComponent() {
   return (
     <div>
       <h3>함수형 컴포넌트입니다!</h3>
@@ -25,6 +38,7 @@ function FunctionComponent() {
 }
 
 export default FunctionComponent;`}
+        </pre>
       </div>
 
       <div className="demo-box">
@@ -35,7 +49,7 @@ export default FunctionComponent;`}
 
       <div className="highlight">
         <strong>함수형 컴포넌트의 특징:</strong>
-        <ul style={{ textAlign: 'left', display: 'inline-block' }}>
+        <ul style={{ textAlign: "left", display: "inline-block" }}>
           <li>간단하고 직관적인 문법</li>
           <li>Hooks 사용 가능</li>
           <li>성능상 이점 (클래스형보다 가벼움)</li>

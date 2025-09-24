@@ -98,7 +98,17 @@ function LocalStorageDemo() {
       
       <div style={{ background: '#f5f5f5', padding: '10px', margin: '15px 0', borderRadius: '5px' }}>
         <strong>현재 설정:</strong>
-        <pre>{JSON.stringify({ name, theme, settings }, null, 2)}</pre>
+        <pre style={{ 
+          background: '#f8f9fa', 
+          padding: '10px', 
+          borderRadius: '4px', 
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef'
+        }}>
+          {JSON.stringify({ name, theme, settings }, null, 2)}
+        </pre>
       </div>
     </div>
   );

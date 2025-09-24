@@ -87,7 +87,18 @@ function BasicControlledForm() {
 
       <div className='form-preview'>
         <h4>현재 폼 데이터:</h4>
-        <pre>{JSON.stringify(formData, null, 2)}</pre>
+        <pre style={{ 
+          background: '#f8f9fa', 
+          padding: '15px', 
+          borderRadius: '6px', 
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {JSON.stringify(formData, null, 2)}
+        </pre>
       </div>
     </div>
   );
@@ -484,7 +495,18 @@ function DynamicFormFields() {
 
       <div className='form-preview'>
         <h4>현재 폼 데이터:</h4>
-        <pre>{JSON.stringify(formData, null, 2)}</pre>
+        <pre style={{ 
+          background: '#f8f9fa', 
+          padding: '15px', 
+          borderRadius: '6px', 
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {JSON.stringify(formData, null, 2)}
+        </pre>
       </div>
     </div>
   );
