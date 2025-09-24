@@ -680,7 +680,17 @@ function FormValidation() {
       <div className='code-example'>
         <strong>기본 유효성 검사 패턴:</strong>
         <br />
-        {`function FormWithValidation() {
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`function FormWithValidation() {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
@@ -721,6 +731,7 @@ function FormValidation() {
     </form>
   );
 }`}
+        </pre>
       </div>
 
       <BasicFormValidation />
@@ -751,7 +762,17 @@ function FormValidation() {
       <div className='code-example'>
         <strong>고급 유효성 검사 패턴:</strong>
         <br />
-        {`// 1. 비동기 검증
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// 1. 비동기 검증
 const validateUsername = async (username) => {
   const response = await fetch(\`/api/check-username/\${username}\`);
   const { available } = await response.json();
@@ -781,6 +802,7 @@ function useFormValidation(initialValues, validators) {
   
   return { values, errors, validate, setValues };
 }`}
+        </pre>
       </div>
     </div>
   );

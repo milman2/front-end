@@ -446,7 +446,17 @@ function APICallPatterns() {
       <div className='code-example'>
         <strong>기본 API 호출 패턴:</strong>
         <br />
-        {`function APICall() {
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`function APICall() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -475,6 +485,7 @@ function APICallPatterns() {
     </div>
   );
 }`}
+        </pre>
       </div>
 
       <BasicAPICall />
@@ -507,7 +518,17 @@ function APICallPatterns() {
       <div className='code-example'>
         <strong>고급 API 호출 패턴:</strong>
         <br />
-        {`// 1. AbortController로 요청 취소
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// 1. AbortController로 요청 취소
 useEffect(() => {
   const controller = new AbortController();
   
@@ -544,6 +565,7 @@ const fetchWithRetry = async (url, maxRetries = 3) => {
     }
   }
 };`}
+        </pre>
       </div>
     </div>
   );

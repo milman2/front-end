@@ -467,7 +467,17 @@ function UncontrolledComponents() {
       <div className='code-example'>
         <strong>비제어 컴포넌트 기본 패턴:</strong>
         <br />
-        {`function UncontrolledForm() {
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`function UncontrolledForm() {
   const inputRef = useRef();
 
   const handleSubmit = (e) => {
@@ -487,6 +497,7 @@ function UncontrolledComponents() {
     </form>
   );
 }`}
+        </pre>
       </div>
 
       <BasicUncontrolledForm />
@@ -508,7 +519,17 @@ function UncontrolledComponents() {
       <div className='code-example'>
         <strong>비제어 컴포넌트 사용 시기:</strong>
         <br />
-        {`// 1. 파일 업로드
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// 1. 파일 업로드
 const fileRef = useRef();
 <input type="file" ref={fileRef} />
 
@@ -526,6 +547,7 @@ const handleSubmit = (e) => {
 // 4. 서드파티 라이브러리와 통합
 const editorRef = useRef();
 <RichTextEditor ref={editorRef} />`}
+        </pre>
       </div>
 
       <div className='highlight'>

@@ -525,7 +525,17 @@ function ControlledComponents() {
       <div className='code-example'>
         <strong>제어 컴포넌트 기본 패턴:</strong>
         <br />
-        {`function ControlledForm() {
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`function ControlledForm() {
   const [value, setValue] = useState('');
 
   const handleChange = (e) => {
@@ -540,6 +550,7 @@ function ControlledComponents() {
     />
   );
 }`}
+        </pre>
       </div>
 
       <BasicControlledForm />
@@ -560,7 +571,17 @@ function ControlledComponents() {
       <div className='code-example'>
         <strong>제어 컴포넌트 사용 시기:</strong>
         <br />
-        {`// 1. 실시간 유효성 검사가 필요한 경우
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// 1. 실시간 유효성 검사가 필요한 경우
 const [email, setEmail] = useState('');
 const [error, setError] = useState('');
 
@@ -588,6 +609,7 @@ const [formData, setFormData] = useState({
   user: { name: '', email: '' },
   preferences: { theme: 'light', notifications: true }
 });`}
+        </pre>
       </div>
     </div>
   );

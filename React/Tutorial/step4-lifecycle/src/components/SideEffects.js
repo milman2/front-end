@@ -384,7 +384,17 @@ function SideEffects() {
       <div className='code-example'>
         <strong>useEffect 의존성 배열 패턴:</strong>
         <br />
-        {`// 1. 빈 배열 - 마운트/언마운트 시에만
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// 1. 빈 배열 - 마운트/언마운트 시에만
 useEffect(() => {
   // 초기화 작업
   return () => {
@@ -401,6 +411,7 @@ useEffect(() => {
 useEffect(() => {
   // 매 렌더링마다 실행
 });`}
+        </pre>
       </div>
 
       <TimerEffect />
@@ -433,7 +444,17 @@ useEffect(() => {
       <div className='code-example'>
         <strong>클린업 함수 작성 패턴:</strong>
         <br />
-        {`useEffect(() => {
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`useEffect(() => {
   // 1. 타이머 정리
   const timer = setInterval(() => {}, 1000);
   return () => clearInterval(timer);
@@ -452,6 +473,7 @@ useEffect(() => {
   fetch(url, { signal: controller.signal });
   return () => controller.abort();
 }, []);`}
+        </pre>
       </div>
     </div>
   );

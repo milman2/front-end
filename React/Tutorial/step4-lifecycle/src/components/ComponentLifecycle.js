@@ -276,7 +276,17 @@ function ComponentLifecycle() {
       <div className='code-example'>
         <strong>컴포넌트 생명주기와 useEffect:</strong>
         <br />
-        {`import React, { useState, useEffect } from 'react';
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`import React, { useState, useEffect } from 'react';
 
 function MyComponent() {
   const [count, setCount] = useState(0);
@@ -298,6 +308,7 @@ function MyComponent() {
 
   return <div>카운트: {count}</div>;
 }`}
+        </pre>
       </div>
 
       <LifecycleLogger />
@@ -325,7 +336,17 @@ function MyComponent() {
       <div className='code-example'>
         <strong>useEffect 의존성 배열 패턴:</strong>
         <br />
-        {`// 1. 빈 배열 [] - 마운트/언마운트 시에만
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// 1. 빈 배열 [] - 마운트/언마운트 시에만
 useEffect(() => {
   // 초기화 작업
   return () => {
@@ -342,6 +363,7 @@ useEffect(() => {
 useEffect(() => {
   // 매 렌더링마다 실행 (주의해서 사용)
 });`}
+        </pre>
       </div>
     </div>
   );

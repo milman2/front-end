@@ -187,7 +187,17 @@ function UseStateExample() {
       <div className="code-example">
         <strong>useState 기본 문법:</strong>
         <br />
-        {`import React, { useState } from 'react';
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`import React, { useState } from 'react';
 
 function MyComponent() {
   const [state, setState] = useState(초기값);
@@ -201,6 +211,7 @@ function MyComponent() {
     </div>
   );
 }`}
+        </pre>
       </div>
 
       <Counter />

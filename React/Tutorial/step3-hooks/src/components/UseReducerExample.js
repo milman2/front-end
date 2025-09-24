@@ -310,7 +310,17 @@ function UseReducerExample() {
 
       <div className="code-example">
         <strong>useReducer 기본 문법:</strong><br/>
-        {`import React, { useReducer } from 'react';
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`import React, { useReducer } from 'react';
 
 // Reducer 함수
 function reducer(state, action) {
@@ -336,6 +346,7 @@ function Counter() {
     </div>
   );
 }`}
+        </pre>
       </div>
 
       <Counter />
@@ -355,7 +366,17 @@ function Counter() {
 
       <div className="code-example">
         <strong>useReducer 사용 시기:</strong><br/>
-        {`// 1. 복잡한 상태 구조
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// 1. 복잡한 상태 구조
 const [state, dispatch] = useReducer(reducer, {
   user: null,
   loading: false,
@@ -376,12 +397,13 @@ case 'FETCH_SUCCESS':
 case 'UPDATE_POST':
   return {
     ...state,
-    posts: state.posts.map(post =>
-      post.id === action.id
+    posts: state.posts.map(post => 
+      post.id === action.id 
         ? { ...post, ...action.updates }
         : post
     )
   };`}
+        </pre>
       </div>
     </div>
   );

@@ -175,7 +175,17 @@ function PerformanceOptimization() {
 
       <div className="code-example">
         <strong>성능 최적화 Hook들:</strong><br/>
-        {`import React, { useMemo, useCallback, memo } from 'react';
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`import React, { useMemo, useCallback, memo } from 'react';
 
 // 1. useMemo - 계산 결과 메모이제이션
 const expensiveValue = useMemo(() => {
@@ -191,6 +201,7 @@ const handleClick = useCallback(() => {
 const MyComponent = memo(({ prop1, prop2 }) => {
   return <div>{prop1} {prop2}</div>;
 });`}
+        </pre>
       </div>
 
       <WithoutCallback />
@@ -211,7 +222,17 @@ const MyComponent = memo(({ prop1, prop2 }) => {
 
       <div className="code-example">
         <strong>언제 사용해야 할까?</strong><br/>
-        {`// ✅ 좋은 사용 예
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// ✅ 좋은 사용 예
 const expensiveValue = useMemo(() => {
   return items.filter(item => item.active).length;
 }, [items]);
@@ -228,6 +249,7 @@ const simpleValue = useMemo(() => {
 const handleClick = useCallback(() => {
   console.log('clicked'); // 의존성이 없는 함수
 }, []);`}
+        </pre>
       </div>
 
       <div className="highlight">

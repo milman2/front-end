@@ -334,9 +334,20 @@ function UseRefExample() {
       
       <div className="code-example">
         <strong>useRef 기본 사용법:</strong><br/>
-        {`const ref = useRef(초기값);
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`const ref = useRef(초기값);
 // ref.current로 값에 접근
 ref.current = 새로운값;`}
+        </pre>
       </div>
       
       <DOMAccessExample />

@@ -176,7 +176,17 @@ function UseContextExample() {
 
       <div className="code-example">
         <strong>Context 생성과 사용:</strong><br/>
-        {`// 1. Context 생성
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// 1. Context 생성
 const ThemeContext = createContext();
 
 // 2. Provider로 감싸기
@@ -196,6 +206,7 @@ function MyComponent() {
   
   return <div>현재 테마: {theme}</div>;
 }`}
+        </pre>
       </div>
 
       <div className="highlight">
@@ -220,7 +231,17 @@ function MyComponent() {
 
       <div className="code-example">
         <strong>Context 사용 시 주의사항:</strong><br/>
-        {`// 1. Context 분리 (관심사 분리)
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// 1. Context 분리 (관심사 분리)
 const ThemeContext = createContext();
 const UserContext = createContext();
 
@@ -239,6 +260,7 @@ const ExpensiveComponent = React.memo(() => {
   const { theme } = useContext(ThemeContext);
   return <div>{theme}</div>;
 });`}
+        </pre>
       </div>
     </div>
   );

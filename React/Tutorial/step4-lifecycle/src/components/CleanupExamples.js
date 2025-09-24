@@ -500,7 +500,17 @@ function CleanupExamples() {
       <div className='code-example'>
         <strong>클린업 함수 기본 패턴:</strong>
         <br />
-        {`useEffect(() => {
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`useEffect(() => {
   // 사이드 이펙트 설정
   
   // 클린업 함수 반환
@@ -508,6 +518,7 @@ function CleanupExamples() {
     // 정리 작업
   };
 }, []);`}
+        </pre>
       </div>
 
       <TimerCleanup />
@@ -540,7 +551,17 @@ function CleanupExamples() {
       <div className='code-example'>
         <strong>클린업 함수 작성 예제:</strong>
         <br />
-        {`// 1. 타이머 클린업
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// 1. 타이머 클린업
 useEffect(() => {
   const timer = setInterval(() => {
     // 작업
@@ -571,6 +592,7 @@ useEffect(() => {
   
   return () => subscription.unsubscribe();
 }, []);`}
+        </pre>
       </div>
 
       <div className='highlight'>

@@ -692,7 +692,17 @@ function InputTypes() {
       <div className='code-example'>
         <strong>다양한 입력 타입 처리 패턴:</strong>
         <br />
-        {`function InputTypesDemo() {
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`function InputTypesDemo() {
   const [formData, setFormData] = useState({
     text: '',
     email: '',
@@ -732,6 +742,7 @@ function InputTypes() {
     </form>
   );
 }`}
+        </pre>
       </div>
 
       <InputTypesDemo />
@@ -764,7 +775,17 @@ function InputTypes() {
       <div className='code-example'>
         <strong>특수 입력 타입 처리:</strong>
         <br />
-        {`// 1. 파일 업로드
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// 1. 파일 업로드
 const handleFileChange = (e) => {
   const files = Array.from(e.target.files);
   setFiles(files);
@@ -791,6 +812,7 @@ const handleTagsInput = (e) => {
   const tags = e.target.value.split(',').map(tag => tag.trim()).filter(tag => tag);
   setTags(tags);
 };`}
+        </pre>
       </div>
 
       <div className='highlight'>

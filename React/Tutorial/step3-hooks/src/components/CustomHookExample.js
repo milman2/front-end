@@ -198,7 +198,17 @@ function CustomHookExample() {
 
       <div className="code-example">
         <strong>커스텀 Hook 기본 구조:</strong><br/>
-        {`import { useState, useEffect } from 'react';
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`import { useState, useEffect } from 'react';
 
 // 커스텀 Hook (use로 시작)
 function useCustomHook(initialValue) {
@@ -217,6 +227,7 @@ function MyComponent() {
   
   return <div>{value}</div>;
 }`}
+        </pre>
       </div>
 
       <CounterDemo />
@@ -237,7 +248,17 @@ function MyComponent() {
 
       <div className="code-example">
         <strong>커스텀 Hook 예제들:</strong><br/>
-        {`// 1. 카운터 Hook
+        <pre style={{
+          background: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '6px',
+          overflow: 'auto',
+          fontSize: '14px',
+          fontFamily: 'monospace',
+          border: '1px solid #e9ecef',
+          margin: '10px 0'
+        }}>
+          {`// 1. 카운터 Hook
 function useCounter(initialValue = 0) {
   const [count, setCount] = useState(initialValue);
   const increment = () => setCount(prev => prev + 1);
@@ -280,6 +301,7 @@ function useFetch(url) {
   
   return { data, loading, error };
 }`}
+        </pre>
       </div>
     </div>
   );
