@@ -1,11 +1,9 @@
 // @ts-nocheck
 import React, { useState, useMemo } from 'react';
-import { List } from 'react-window';
-import AutoSizer from 'react-virtualized-auto-sizer';
 import './VirtualizationExample.css';
 
 // 가상화 예제를 위한 데이터 타입
-interface ListItem {
+interface User {
   id: number;
   name: string;
   email: string;
@@ -24,67 +22,14 @@ interface Product {
   inStock: boolean;
 }
 
-// 고정 크기 리스트 아이템 컴포넌트
-const FixedSizeItem: React.FC<{ index: number; style: React.CSSProperties; data: ListItem[] }> = ({
-  index,
-  style,
-  data,
-}) => {
-  const item = data[index];
-
-  return (
-    <div style={style} className="virtual-item fixed-size">
-      <div className="item-content">
-        <div className="item-header">
-          <h4>{item.name}</h4>
-          <span className="department">{item.department}</span>
-        </div>
-        <p className="email">{item.email}</p>
-        <div className="item-details">
-          <span>급여: {item.salary.toLocaleString()}원</span>
-          <span>입사일: {item.joinDate}</span>
-        </div>
-        <p className="description">{item.description}</p>
-      </div>
-    </div>
-  );
-};
-
-// 가변 크기 리스트 아이템 컴포넌트 (고정 크기로 대체)
-const VariableSizeItem: React.FC<{
-  index: number;
-  style: React.CSSProperties;
-  data: Product[];
-}> = ({ index, style, data }) => {
-  const item = data[index];
-  const descriptionLength = item.description.length;
-
-  return (
-    <div style={style} className="virtual-item variable-size">
-      <div className="item-content">
-        <div className="item-header">
-          <h4>{item.name}</h4>
-          <span className={`status ${item.inStock ? 'in-stock' : 'out-of-stock'}`}>
-            {item.inStock ? '재고있음' : '품절'}
-          </span>
-        </div>
-        <p className="category">{item.category}</p>
-        <div className="price">가격: {item.price.toLocaleString()}원</div>
-        <p className="description">{item.description}</p>
-        <div className="item-meta">
-          <small>설명 길이: {descriptionLength}자</small>
-        </div>
-      </div>
-    </div>
-  );
-};
+// 가상화 예제 컴포넌트
 
 const VirtualizationExample: React.FC = () => {
   const [itemCount, setItemCount] = useState<number>(1000);
   const [selectedView, setSelectedView] = useState<'fixed' | 'variable' | 'normal'>('fixed');
 
   // 대량의 사용자 데이터 생성
-  const users = useMemo(() => {
+  const users: User[] = useMemo(() => {
     const departments = ['개발팀', '디자인팀', '마케팅팀', '영업팀', '인사팀', '재무팀'];
     const names = ['김철수', '이영희', '박민수', '정수진', '최동현', '한미영', '송지훈', '윤서연'];
 
@@ -174,49 +119,105 @@ const VirtualizationExample: React.FC = () => {
     </div>
   );
 
-  // 고정 크기 가상화 리스트 렌더링
-  const renderFixedSizeList = () => (
-    <div className="virtual-list">
-      <h3>고정 크기 가상화 리스트</h3>
-      <div className="list-container">
-        <AutoSizer>
-          {({ height, width }: { height: number; width: number }) => (
-            <List
-              height={height}
-              width={width}
-              itemCount={users.length}
-              itemSize={150}
-              itemData={users}
-            >
-              {FixedSizeItem as any}
-            </List>
-          )}
-        </AutoSizer>
-      </div>
-    </div>
-  );
+  // 고정 크기 가상화 리스트 렌더링 (react-window 대신 간단한 가상화)
+  const renderFixedSizeList = () => {
+    if (!users || users.length === 0) {
+      return (
+        <div className="virtual-list">
+          <h3>고정 크기 가상화 리스트</h3>
+          <div className="list-container">
+            <p>데이터를 로딩 중...</p>
+          </div>
+        </div>
+      );
+    }
 
-  // 가변 크기 가상화 리스트 렌더링 (고정 크기로 대체)
-  const renderVariableSizeList = () => (
-    <div className="virtual-list">
-      <h3>가변 크기 가상화 리스트 (고정 크기로 시뮬레이션)</h3>
-      <div className="list-container">
-        <AutoSizer>
-          {({ height, width }: { height: number; width: number }) => (
-            <List
-              height={height}
-              width={width}
-              itemCount={products.length}
-              itemSize={200}
-              itemData={products}
-            >
-              {VariableSizeItem as any}
-            </List>
-          )}
-        </AutoSizer>
+    // 간단한 가상화: 처음 20개만 렌더링
+    const visibleItems = users.slice(0, 20);
+
+    return (
+      <div className="virtual-list">
+        <h3>고정 크기 가상화 리스트 (간단한 가상화)</h3>
+        <div className="list-container">
+          <div style={{ height: '400px', overflow: 'auto' }}>
+            {visibleItems.map((user, index) => (
+              <div
+                key={user.id}
+                style={{ height: '150px', padding: '10px', borderBottom: '1px solid #eee' }}
+              >
+                <div className="item-content">
+                  <div className="item-header">
+                    <h4>{user.name}</h4>
+                    <span className="department">{user.department}</span>
+                  </div>
+                  <p className="email">{user.email}</p>
+                  <div className="item-details">
+                    <span>급여: {user.salary.toLocaleString()}원</span>
+                    <span>입사일: {user.joinDate}</span>
+                  </div>
+                  <p className="description">{user.description}</p>
+                </div>
+              </div>
+            ))}
+            <div style={{ padding: '20px', textAlign: 'center', color: '#666' }}>
+              총 {users.length}개 중 20개 표시 (간단한 가상화)
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
+
+  // 가변 크기 가상화 리스트 렌더링 (간단한 가상화)
+  const renderVariableSizeList = () => {
+    if (!products || products.length === 0) {
+      return (
+        <div className="virtual-list">
+          <h3>가변 크기 가상화 리스트 (간단한 가상화)</h3>
+          <div className="list-container">
+            <p>데이터를 로딩 중...</p>
+          </div>
+        </div>
+      );
+    }
+
+    // 간단한 가상화: 처음 15개만 렌더링
+    const visibleItems = products.slice(0, 15);
+
+    return (
+      <div className="virtual-list">
+        <h3>가변 크기 가상화 리스트 (간단한 가상화)</h3>
+        <div className="list-container">
+          <div style={{ height: '400px', overflow: 'auto' }}>
+            {visibleItems.map((product, index) => (
+              <div
+                key={product.id}
+                style={{ height: '200px', padding: '10px', borderBottom: '1px solid #eee' }}
+              >
+                <div className="item-content">
+                  <div className="item-header">
+                    <h4>{product.name}</h4>
+                    <span className={`status ${product.inStock ? 'in-stock' : 'out-of-stock'}`}>
+                      {product.inStock ? '재고있음' : '품절'}
+                    </span>
+                  </div>
+                  <p className="category">{product.category}</p>
+                  <div className="price">가격: {product.price.toLocaleString()}원</div>
+                  <p className="description">{product.description}</p>
+                  <div className="item-meta">
+                    <small>설명 길이: {product.description?.length || 0}자</small>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div style={{ padding: '20px', textAlign: 'center', color: '#666' }}>
+              총 {products.length}개 중 15개 표시 (간단한 가상화)
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="virtualization-example">

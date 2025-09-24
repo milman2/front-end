@@ -87,6 +87,26 @@ const CodeSplittingExample: React.FC = () => {
   const [loadedModules, setLoadedModules] = useState<Set<string>>(new Set(['dashboard']));
   const [loadingTimes, setLoadingTimes] = useState<Record<string, number>>({});
 
+  // 안전한 Object.values 헬퍼 함수
+  const safeObjectValues = (obj: any): number[] => {
+    if (!obj || typeof obj !== 'object' || obj === null) return [];
+    try {
+      return Object.values(obj) as number[];
+    } catch {
+      return [];
+    }
+  };
+
+  // 안전한 Object.entries 헬퍼 함수
+  const safeObjectEntries = (obj: any): [string, any][] => {
+    if (!obj || typeof obj !== 'object' || obj === null) return [];
+    try {
+      return Object.entries(obj);
+    } catch {
+      return [];
+    }
+  };
+
   // 모듈 정보
   const modules: Record<string, ModuleInfo> = {
     dashboard: {
@@ -163,7 +183,7 @@ const CodeSplittingExample: React.FC = () => {
       <div className="module-navigation">
         <h3>모듈 선택</h3>
         <div className="module-buttons">
-          {Object.entries(modules).map(([key, module]) => (
+          {safeObjectEntries(modules).map(([key, module]) => (
             <button
               key={key}
               className={`module-button ${activeModule === key ? 'active' : ''} ${
@@ -222,17 +242,16 @@ const CodeSplittingExample: React.FC = () => {
           </div>
           <div className="stat-card">
             <div className="stat-value">
-              {loadingTimes ? Object.values(loadingTimes).reduce((sum, time) => sum + time, 0) : 0}
-              ms
+              {safeObjectValues(loadingTimes).reduce((sum, time) => sum + time, 0)}ms
             </div>
             <div className="stat-label">총 로딩 시간</div>
           </div>
           <div className="stat-card">
             <div className="stat-value">
-              {loadingTimes && Object.keys(loadingTimes).length > 0
+              {safeObjectValues(loadingTimes).length > 0
                 ? Math.round(
-                    Object.values(loadingTimes).reduce((sum, time) => sum + time, 0) /
-                      Object.keys(loadingTimes).length
+                    safeObjectValues(loadingTimes).reduce((sum, time) => sum + time, 0) /
+                      safeObjectValues(loadingTimes).length
                   )
                 : 0}
               ms
