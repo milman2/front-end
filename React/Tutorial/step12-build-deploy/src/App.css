@@ -1,0 +1,204 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.App-header {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.App-header h1 {
+  margin: 0 0 1rem 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.App-header p {
+  margin: 0;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.App-main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.build-info,
+.performance-metrics,
+.deployment-status {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.build-info h3,
+.performance-metrics h3,
+.deployment-status h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.info-grid,
+.metrics-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.info-item,
+.metric-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-item:last-child,
+.metric-item:last-child {
+  border-bottom: none;
+}
+
+.label,
+.metric-label {
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.value,
+.metric-value {
+  font-weight: 500;
+  color: #61dafb;
+}
+
+.deployments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.deployment-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.deployment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.platform {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.status {
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+}
+
+.deployment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.url a {
+  color: #61dafb;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.url a:hover {
+  text-decoration: underline;
+}
+
+.last-deploy {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.build-commands {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.build-commands h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.command-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.command-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.command-item code {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #61dafb;
+  font-weight: 600;
+}
+
+.command-item span {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 2rem;
+  }
+
+  .App-header p {
+    font-size: 1rem;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .command-list {
+    grid-template-columns: 1fr;
+  }
+}
