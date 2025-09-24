@@ -20,6 +20,7 @@ interface Product {
 
 // 메모이제이션되지 않은 컴포넌트
 const UserCard: React.FC<{ user: User; onClick: (id: number) => void }> = ({ user, onClick }) => {
+  // eslint-disable-next-line no-console
   console.log(`UserCard 렌더링: ${user.name}`);
 
   return (
@@ -34,6 +35,7 @@ const UserCard: React.FC<{ user: User; onClick: (id: number) => void }> = ({ use
 
 // React.memo로 메모이제이션된 컴포넌트
 const MemoizedUserCard = memo<UserCardProps>(({ user, onClick }) => {
+  // eslint-disable-next-line no-console
   console.log(`MemoizedUserCard 렌더링: ${user.name}`);
 
   return (
@@ -60,7 +62,7 @@ const MemoizationExample: React.FC = () => {
     { id: 5, name: '최동현', email: 'choi@example.com', age: 32, department: '디자인팀' },
   ]);
 
-  const [products, setProducts] = useState<Product[]>([
+  const [products] = useState<Product[]>([
     { id: 1, name: '노트북', price: 1500000, category: '전자제품', inStock: true },
     { id: 2, name: '마우스', price: 50000, category: '전자제품', inStock: true },
     { id: 3, name: '키보드', price: 120000, category: '전자제품', inStock: false },
@@ -74,6 +76,7 @@ const MemoizationExample: React.FC = () => {
 
   // useMemo를 사용한 필터링된 사용자 목록
   const filteredUsers = useMemo(() => {
+    // eslint-disable-next-line no-console
     console.log('필터링된 사용자 목록 계산 중...');
     if (filter === 'all') return users;
     return users.filter((user) => user.department === filter);
@@ -81,6 +84,7 @@ const MemoizationExample: React.FC = () => {
 
   // useMemo를 사용한 통계 계산
   const userStats = useMemo(() => {
+    // eslint-disable-next-line no-console
     console.log('사용자 통계 계산 중...');
     const totalUsers = users.length;
     const avgAge = users.reduce((sum, user) => sum + user.age, 0) / totalUsers;
@@ -95,6 +99,7 @@ const MemoizationExample: React.FC = () => {
 
   // useMemo를 사용한 재고 있는 제품 목록
   const inStockProducts = useMemo(() => {
+    // eslint-disable-next-line no-console
     console.log('재고 있는 제품 목록 계산 중...');
     return products.filter((product) => product.inStock);
   }, [products]);

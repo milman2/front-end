@@ -140,7 +140,7 @@ const PerformanceMonitoringExample: React.FC = () => {
         const heavyData = Array.from({ length: 10000 }, () => Math.random());
         setData(heavyData);
       });
-    }, [measureRenderTime]);
+    }, []);
 
     return (
       <div className="heavy-component">
@@ -156,7 +156,7 @@ const PerformanceMonitoringExample: React.FC = () => {
       measureRenderTime('LightComponent', () => {
         // 가벼운 작업
       });
-    }, [measureRenderTime]);
+    }, []);
 
     return (
       <div className="light-component">

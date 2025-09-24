@@ -18,7 +18,7 @@ const ImageGallery: React.FC = () => {
       <div className="gallery-grid">
         {images.map((src, index) => (
           <div key={index} className="gallery-item" onClick={() => setSelectedImage(src)}>
-            <img src={src} alt={`Gallery image ${index + 1}`} />
+            <img src={src} alt={`Gallery item ${index + 1}`} />
           </div>
         ))}
       </div>

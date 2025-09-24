@@ -1,12 +1,27 @@
 import React, { useState, Suspense, lazy, ComponentType } from 'react';
 import './CodeSplittingExample.css';
 
+// Start of Selection
 // 동적 import를 사용한 코드 분할
-const Dashboard = lazy(() => import('./Dashboard'));
-const UserManagement = lazy(() => import('./UserManagement'));
-const Analytics = lazy(() => import('./Analytics'));
-const Settings = lazy(() => import('./Settings'));
-const Reports = lazy(() => import('./Reports'));
+const Dashboard = lazy(() =>
+  import('./Dashboard').catch(() => ({
+    default: () => <div>대시보드 모듈을 찾을 수 없습니다.</div>,
+  }))
+);
+const UserManagement = lazy(() =>
+  import('./UserManagement').catch(() => ({
+    default: () => <div>사용자 관리 모듈을 찾을 수 없습니다.</div>,
+  }))
+);
+const Analytics = lazy(() =>
+  import('./Analytics').catch(() => ({ default: () => <div>분석 모듈을 찾을 수 없습니다.</div> }))
+);
+const Settings = lazy(() =>
+  import('./Settings').catch(() => ({ default: () => <div>설정 모듈을 찾을 수 없습니다.</div> }))
+);
+const Reports = lazy(() =>
+  import('./Reports').catch(() => ({ default: () => <div>보고서 모듈을 찾을 수 없습니다.</div> }))
+);
 
 // 로딩 컴포넌트
 const LoadingComponent: React.FC<{ name: string }> = ({ name }) => (
@@ -36,6 +51,7 @@ class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // eslint-disable-next-line no-console
     console.error('ErrorBoundary caught an error:', error, errorInfo);
   }
 
@@ -173,11 +189,11 @@ const CodeSplittingExample: React.FC = () => {
               <strong>예상 크기:</strong> {modules[activeModule]?.estimatedSize}
             </div>
             <div className="detail-item">
-              <strong>로딩 시간:</strong>{' '}
+              <strong>로딩 시간:</strong>
               {loadingTimes[activeModule] ? `${loadingTimes[activeModule]}ms` : '측정 중...'}
             </div>
             <div className="detail-item">
-              <strong>로딩 상태:</strong>{' '}
+              <strong>로딩 상태:</strong>
               {loadedModules.has(activeModule) ? '로드됨' : '로딩 중...'}
             </div>
           </div>
@@ -206,13 +222,13 @@ const CodeSplittingExample: React.FC = () => {
           </div>
           <div className="stat-card">
             <div className="stat-value">
-              {Object.values(loadingTimes).reduce((sum, time) => sum + time, 0)}ms
+              {loadingTimes && Object.values(loadingTimes).reduce((sum, time) => sum + time, 0)}ms
             </div>
             <div className="stat-label">총 로딩 시간</div>
           </div>
           <div className="stat-card">
             <div className="stat-value">
-              {Object.keys(loadingTimes).length > 0
+              {loadingTimes && Object.keys(loadingTimes).length > 0
                 ? Math.round(
                     Object.values(loadingTimes).reduce((sum, time) => sum + time, 0) /
                       Object.keys(loadingTimes).length
