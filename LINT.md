@@ -121,23 +121,360 @@ prettier --check "src/**/*.{js,jsx,ts,tsx}"
 }
 ```
 
-## 📋 ESLint 통합
+## 📋 ESLint를 활용한 코드 품질 향상
 
-### ESLint + Prettier 설치
+### ESLint란?
+- **정적 코드 분석 도구**: 코드를 실행하지 않고도 잠재적 오류와 문제점을 찾아냄
+- **코드 품질 검사**: 일관성, 가독성, 유지보수성 향상
+- **버그 예방**: 런타임 오류를 개발 단계에서 미리 발견
+- **팀 협업**: 일관된 코딩 스타일과 규칙 적용
+
+### ESLint 설치 및 설정
+
+#### 기본 설치
 ```bash
-npm install --save-dev eslint eslint-config-prettier eslint-plugin-prettier
+# ESLint 기본 설치
+npm install --save-dev eslint
+
+# React 프로젝트용 추가 패키지
+npm install --save-dev eslint-plugin-react eslint-plugin-react-hooks
+
+# Prettier와 통합
+npm install --save-dev eslint-config-prettier eslint-plugin-prettier
+
+# TypeScript 지원 (선택사항)
+npm install --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin
 ```
 
-### ESLint 설정 (.eslintrc.js)
+#### ESLint 설정 파일 (.eslintrc.js)
 ```javascript
 module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
+  },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:prettier/recommended'
+    'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
   ],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 12,
+    sourceType: 'module',
+  },
+  plugins: ['react', 'react-hooks'],
   rules: {
-    'prettier/prettier': 'error'
+    // Prettier 통합
+    'prettier/prettier': 'error',
+    
+    // React 관련 규칙
+    'react/prop-types': 'warn',
+    'react/react-in-jsx-scope': 'off', // React 17+ 자동 import
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    
+    // 일반적인 코드 품질 규칙
+    'no-unused-vars': 'warn',
+    'no-console': 'warn',
+    'no-debugger': 'error',
+    'prefer-const': 'error',
+    'no-var': 'error',
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+};
+```
+
+### ESLint 규칙 카테고리
+
+#### 1. 오류 방지 (Error Prevention)
+```javascript
+// 사용하지 않는 변수
+const unusedVar = 'test'; // ❌ no-unused-vars
+
+// 선언되지 않은 변수 사용
+console.log(undefinedVar); // ❌ no-undef
+
+// console.log 사용 (프로덕션에서)
+console.log('debug info'); // ❌ no-console
+```
+
+#### 2. React 특화 규칙
+```javascript
+// Hook 규칙 위반
+function Component() {
+  if (condition) {
+    useState(0); // ❌ react-hooks/rules-of-hooks
+  }
+  
+  useEffect(() => {
+    // 의존성 배열 누락
+  }); // ❌ react-hooks/exhaustive-deps
+}
+
+// PropTypes 누락
+function MyComponent({ name }) { // ❌ react/prop-types
+  return <div>{name}</div>;
+}
+```
+
+#### 3. 코드 스타일 (Code Style)
+```javascript
+// var 사용 금지
+var oldStyle = 'avoid'; // ❌ no-var
+
+// const 사용 권장
+let shouldBeConst = 'value'; // ❌ prefer-const
+shouldBeConst = 'new value';
+
+// 세미콜론 누락
+const noSemicolon = 'test' // ❌ semi
+```
+
+### ESLint 명령어 사용법
+
+#### npm 스크립트 추가
+```json
+{
+  "scripts": {
+    "lint": "eslint src/**/*.{js,jsx}",
+    "lint:fix": "eslint src/**/*.{js,jsx} --fix",
+    "lint:check": "eslint src/**/*.{js,jsx} --max-warnings 0"
+  }
+}
+```
+
+#### 명령어 실행
+```bash
+# 전체 프로젝트 검사
+npm run lint
+
+# 자동 수정 가능한 오류 수정
+npm run lint:fix
+
+# 경고도 오류로 처리
+npm run lint:check
+
+# 특정 파일만 검사
+npx eslint src/components/MyComponent.js
+
+# 특정 규칙만 검사
+npx eslint --rule "no-console: error" src/
+```
+
+### ESLint 규칙 커스터마이징
+
+#### 규칙 레벨 설정
+```javascript
+// .eslintrc.js
+module.exports = {
+  rules: {
+    // 0: 끄기, 1: 경고, 2: 오류
+    'no-console': 1,        // 경고
+    'no-debugger': 2,       // 오류
+    'prefer-const': 0,      // 끄기
+    
+    // 옵션과 함께 설정
+    'max-len': [2, { code: 80, ignoreUrls: true }],
+    'react/prop-types': [1, { ignore: ['children'] }],
+  }
+};
+```
+
+#### 파일별 규칙 설정
+```javascript
+// 특정 파일에서만 규칙 비활성화
+/* eslint-disable no-console */
+console.log('이 파일에서만 console 허용');
+/* eslint-enable no-console */
+
+// 한 줄만 비활성화
+const unused = 'test'; // eslint-disable-line no-unused-vars
+
+// 다음 줄만 비활성화
+// eslint-disable-next-line no-console
+console.log('debug');
+```
+
+### ESLint 무시 파일 (.eslintignore)
+```
+node_modules/
+build/
+dist/
+*.min.js
+coverage/
+.env
+```
+
+### VS Code ESLint 통합
+
+#### 확장 프로그램 설정
+```json
+// .vscode/settings.json
+{
+  "eslint.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.format.enable": true
+}
+```
+
+### 실제 프로젝트 적용 예시
+
+#### step4-lifecycle 프로젝트에 ESLint 적용
+```bash
+cd /home/milman2/front-end/React/Tutorial/step4-lifecycle
+npm install --save-dev eslint eslint-plugin-react eslint-plugin-react-hooks eslint-config-prettier eslint-plugin-prettier
+```
+
+#### package.json 스크립트 추가
+```json
+{
+  "scripts": {
+    "lint": "eslint src/**/*.{js,jsx}",
+    "lint:fix": "eslint src/**/*.{js,jsx} --fix",
+    "lint:check": "eslint src/**/*.{js,jsx} --max-warnings 0"
+  }
+}
+```
+
+### ESLint vs Prettier 역할 분담
+
+| 도구 | 역할 | 예시 |
+|------|------|------|
+| **ESLint** | 코드 품질, 버그 방지 | `no-unused-vars`, `react-hooks/rules-of-hooks` |
+| **Prettier** | 코드 포맷팅, 스타일 | 들여쓰기, 따옴표, 세미콜론 |
+
+### 일반적인 ESLint 오류와 해결법
+
+#### 1. Hook 규칙 위반
+```javascript
+// ❌ 잘못된 사용
+function Component() {
+  if (condition) {
+    const [state, setState] = useState(0);
+  }
+}
+
+// ✅ 올바른 사용
+function Component() {
+  const [state, setState] = useState(0);
+  
+  if (condition) {
+    // 조건부 로직은 Hook 호출 후에
+  }
+}
+```
+
+#### 2. 의존성 배열 누락
+```javascript
+// ❌ 의존성 누락
+useEffect(() => {
+  fetchData(userId);
+}, []); // userId가 변경되어도 실행되지 않음
+
+// ✅ 올바른 의존성
+useEffect(() => {
+  fetchData(userId);
+}, [userId]); // userId 변경 시 재실행
+```
+
+#### 3. 사용하지 않는 변수
+```javascript
+// ❌ 사용하지 않는 변수
+const [count, setCount] = useState(0);
+const unusedVar = 'test';
+
+// ✅ 사용하지 않는 변수 제거 또는 언더스코어 사용
+const [count, setCount] = useState(0);
+const _unusedVar = 'test'; // eslint-disable-line no-unused-vars
+```
+
+### CI/CD에서 ESLint 통합
+
+#### GitHub Actions 예시
+```yaml
+# .github/workflows/lint.yml
+name: Lint
+on: [push, pull_request]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: npm install
+      - run: npm run lint:check
+```
+
+### ESLint 성능 최적화
+
+#### 캐시 사용
+```bash
+# 캐시와 함께 실행
+npx eslint --cache src/
+
+# 캐시 파일 위치 지정
+npx eslint --cache --cache-location .eslintcache src/
+```
+
+#### 병렬 처리
+```bash
+# 여러 파일을 병렬로 처리
+npx eslint --max-warnings 0 src/ --format=compact
+```
+
+### ESLint 규칙 조정 권장사항
+
+#### 학습 프로젝트용 설정
+```javascript
+// .eslintrc.js - 학습용 완화된 설정
+module.exports = {
+  // ... 기존 설정
+  rules: {
+    // PropTypes 경고를 끄기 (학습 단계에서는 선택사항)
+    'react/prop-types': 'off',
+    
+    // console.log를 경고로 유지 (디버깅용)
+    'no-console': 'warn',
+    
+    // useEffect 의존성은 경고로 유지 (중요한 학습 포인트)
+    'react-hooks/exhaustive-deps': 'warn',
+  }
+};
+```
+
+#### 프로덕션 프로젝트용 설정
+```javascript
+// .eslintrc.js - 프로덕션용 엄격한 설정
+module.exports = {
+  // ... 기존 설정
+  rules: {
+    // PropTypes 필수
+    'react/prop-types': 'error',
+    
+    // console.log 금지
+    'no-console': 'error',
+    
+    // useEffect 의존성 필수
+    'react-hooks/exhaustive-deps': 'error',
   }
 };
 ```
