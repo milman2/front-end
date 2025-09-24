@@ -12,12 +12,12 @@ function LifecycleTracker({ name, onLog, onUnmount }) {
     return () => {
       onLog(`${name}: 컴포넌트가 언마운트됩니다.`);
     };
-  }, [name, onLog]);
+  }, [name]); // onLog 제거
 
   // count가 변경될 때마다
   useEffect(() => {
     onLog(`${name}: count가 ${count}로 업데이트되었습니다.`);
-  }, [count, name, onLog]);
+  }, [count, name]); // onLog 제거
 
   const handleUnmount = () => {
     onLog(`${name}: 언마운트 버튼이 클릭되었습니다.`);
