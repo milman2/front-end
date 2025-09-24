@@ -1,0 +1,56 @@
+.theme-example {
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  transition: all 0.3s ease;
+}
+
+.theme-example.light {
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #e0e0e0;
+}
+
+.theme-example.dark {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  border: 1px solid #555555;
+}
+
+.theme-toggle {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: #0056b3;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.code-example {
+  margin: 15px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.code-example pre {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  overflow: auto;
+  font-size: 14px;
+  font-family: monospace;
+  border: 1px solid #e9ecef;
+  margin: 10px 0;
+}

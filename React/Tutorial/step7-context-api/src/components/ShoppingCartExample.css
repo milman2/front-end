@@ -1,0 +1,159 @@
+.shopping-cart-example {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 20px 0;
+  background-color: #f9f9f9;
+}
+
+.product-section,
+.cart-section {
+  margin-bottom: 20px;
+}
+
+.add-product {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.add-product select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  min-width: 200px;
+}
+
+.add-product button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-product button:hover {
+  background-color: #218838;
+}
+
+.add-product button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.cart-items {
+  background-color: white;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.item-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity-controls button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.quantity-controls button:hover {
+  background-color: #0056b3;
+}
+
+.quantity-controls span {
+  min-width: 30px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.item-price {
+  font-weight: 500;
+  color: #28a745;
+  min-width: 100px;
+  text-align: right;
+}
+
+.remove-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.remove-btn:hover {
+  background-color: #c82333;
+}
+
+.cart-total {
+  text-align: right;
+  font-size: 18px;
+  margin: 15px 0;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.clear-cart-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.clear-cart-btn:hover {
+  background-color: #5a6268;
+}
+
+.code-example {
+  margin: 15px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.code-example pre {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  overflow: auto;
+  font-size: 14px;
+  font-family: monospace;
+  border: 1px solid #e9ecef;
+  margin: 10px 0;
+}
