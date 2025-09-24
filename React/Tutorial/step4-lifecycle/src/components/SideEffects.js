@@ -28,16 +28,13 @@ function TimerEffect() {
   };
 
   return (
-    <div className="demo-box">
+    <div className='demo-box'>
       <h3>타이머 사이드 이펙트</h3>
-      <div className="timer">{seconds}초</div>
-      <button 
-        className="button" 
-        onClick={() => setIsRunning(!isRunning)}
-      >
+      <div className='timer'>{seconds}초</div>
+      <button className='button' onClick={() => setIsRunning(!isRunning)}>
         {isRunning ? '정지' : '시작'}
       </button>
-      <button className="button" onClick={reset}>
+      <button className='button' onClick={reset}>
         리셋
       </button>
       <p>타이머는 컴포넌트가 언마운트되거나 정지될 때 자동으로 정리됩니다.</p>
@@ -49,7 +46,7 @@ function TimerEffect() {
 function WindowEventEffect() {
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight,
   });
   const [scrollPosition, setScrollPosition] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -59,7 +56,7 @@ function WindowEventEffect() {
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       });
     };
 
@@ -85,7 +82,7 @@ function WindowEventEffect() {
 
   // 마우스 이동 이벤트
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = e => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
@@ -97,9 +94,16 @@ function WindowEventEffect() {
   }, []);
 
   return (
-    <div className="demo-box">
+    <div className='demo-box'>
       <h3>윈도우 이벤트 리스너</h3>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', textAlign: 'left' }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '20px',
+          textAlign: 'left',
+        }}
+      >
         <div>
           <h4>윈도우 크기</h4>
           <p>너비: {windowSize.width}px</p>
@@ -126,12 +130,12 @@ function KeyboardEffect() {
   const [keyHistory, setKeyHistory] = useState([]);
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = e => {
       setPressedKeys(prev => new Set([...prev, e.key]));
       setKeyHistory(prev => [...prev.slice(-9), e.key]);
     };
 
-    const handleKeyUp = (e) => {
+    const handleKeyUp = e => {
       setPressedKeys(prev => {
         const newSet = new Set(prev);
         newSet.delete(e.key);
@@ -149,27 +153,29 @@ function KeyboardEffect() {
   }, []);
 
   return (
-    <div className="demo-box">
+    <div className='demo-box'>
       <h3>키보드 이벤트 추적</h3>
       <div style={{ margin: '15px 0' }}>
         <h4>현재 눌린 키:</h4>
-        <div style={{ 
-          background: '#f5f5f5', 
-          padding: '10px', 
-          borderRadius: '5px',
-          minHeight: '40px'
-        }}>
+        <div
+          style={{
+            background: '#f5f5f5',
+            padding: '10px',
+            borderRadius: '5px',
+            minHeight: '40px',
+          }}
+        >
           {pressedKeys.size > 0 ? (
             Array.from(pressedKeys).map(key => (
-              <span 
+              <span
                 key={key}
-                style={{ 
-                  background: '#4caf50', 
-                  color: 'white', 
-                  padding: '2px 8px', 
+                style={{
+                  background: '#4caf50',
+                  color: 'white',
+                  padding: '2px 8px',
                   margin: '2px',
                   borderRadius: '3px',
-                  display: 'inline-block'
+                  display: 'inline-block',
                 }}
               >
                 {key}
@@ -180,16 +186,20 @@ function KeyboardEffect() {
           )}
         </div>
       </div>
-      
+
       <div>
         <h4>최근 키 히스토리:</h4>
-        <div style={{ 
-          background: '#f5f5f5', 
-          padding: '10px', 
-          borderRadius: '5px',
-          fontFamily: 'monospace'
-        }}>
-          {keyHistory.length > 0 ? keyHistory.join(' → ') : '아직 키가 눌리지 않았습니다'}
+        <div
+          style={{
+            background: '#f5f5f5',
+            padding: '10px',
+            borderRadius: '5px',
+            fontFamily: 'monospace',
+          }}
+        >
+          {keyHistory.length > 0
+            ? keyHistory.join(' → ')
+            : '아직 키가 눌리지 않았습니다'}
         </div>
       </div>
     </div>
@@ -212,26 +222,26 @@ function DocumentTitleEffect() {
   }, [count]);
 
   return (
-    <div className="demo-box">
+    <div className='demo-box'>
       <h3>문서 타이틀 변경</h3>
       <p>브라우저 탭의 제목이 변경되는 것을 확인해보세요!</p>
-      
+
       <div style={{ margin: '15px 0' }}>
         <div>
           <label>사용자 정의 타이틀: </label>
           <input
-            type="text"
+            type='text'
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={e => setTitle(e.target.value)}
             style={{ padding: '5px', width: '200px' }}
           />
         </div>
         <div style={{ margin: '10px 0' }}>
           <label>카운트: </label>
-          <button className="button" onClick={() => setCount(count + 1)}>
+          <button className='button' onClick={() => setCount(count + 1)}>
             {count}
           </button>
-          <button className="button" onClick={() => setCount(0)}>
+          <button className='button' onClick={() => setCount(0)}>
             리셋
           </button>
         </div>
@@ -244,22 +254,24 @@ function DocumentTitleEffect() {
 function LocalStorageEffect() {
   const [data, setData] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem('lifecycle-demo-data')) || {
-        name: '',
-        email: '',
-        preferences: {
-          theme: 'light',
-          notifications: true
+      return (
+        JSON.parse(localStorage.getItem('lifecycle-demo-data')) || {
+          name: '',
+          email: '',
+          preferences: {
+            theme: 'light',
+            notifications: true,
+          },
         }
-      };
+      );
     } catch (error) {
       return {
         name: '',
         email: '',
         preferences: {
           theme: 'light',
-          notifications: true
-        }
+          notifications: true,
+        },
       };
     }
   });
@@ -276,7 +288,7 @@ function LocalStorageEffect() {
   const updateData = (field, value) => {
     setData(prev => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -285,68 +297,72 @@ function LocalStorageEffect() {
       ...prev,
       preferences: {
         ...prev.preferences,
-        [field]: value
-      }
+        [field]: value,
+      },
     }));
   };
 
   return (
-    <div className="demo-box">
+    <div className='demo-box'>
       <h3>로컬 스토리지 동기화</h3>
       <p>입력한 데이터가 자동으로 로컬 스토리지에 저장됩니다.</p>
-      
+
       <div style={{ textAlign: 'left', maxWidth: '400px', margin: '0 auto' }}>
         <div style={{ margin: '10px 0' }}>
           <label>이름: </label>
           <input
-            type="text"
+            type='text'
             value={data.name}
-            onChange={(e) => updateData('name', e.target.value)}
+            onChange={e => updateData('name', e.target.value)}
             style={{ padding: '5px', width: '150px' }}
           />
         </div>
-        
+
         <div style={{ margin: '10px 0' }}>
           <label>이메일: </label>
           <input
-            type="email"
+            type='email'
             value={data.email}
-            onChange={(e) => updateData('email', e.target.value)}
+            onChange={e => updateData('email', e.target.value)}
             style={{ padding: '5px', width: '150px' }}
           />
         </div>
-        
+
         <div style={{ margin: '10px 0' }}>
           <label>테마: </label>
           <select
             value={data.preferences.theme}
-            onChange={(e) => updatePreferences('theme', e.target.value)}
+            onChange={e => updatePreferences('theme', e.target.value)}
             style={{ padding: '5px', width: '150px' }}
           >
-            <option value="light">라이트</option>
-            <option value="dark">다크</option>
+            <option value='light'>라이트</option>
+            <option value='dark'>다크</option>
           </select>
         </div>
-        
+
         <div style={{ margin: '10px 0' }}>
           <label>
             <input
-              type="checkbox"
+              type='checkbox'
               checked={data.preferences.notifications}
-              onChange={(e) => updatePreferences('notifications', e.target.checked)}
+              onChange={e =>
+                updatePreferences('notifications', e.target.checked)
+              }
             />
             알림 받기
           </label>
         </div>
       </div>
-      
-      <div style={{ 
-        background: '#f5f5f5', 
-        padding: '10px', 
-        margin: '15px 0', 
-        borderRadius: '5px',
-        textAlign: 'left'
-      }}>
+
+      <div
+        style={{
+          background: '#f5f5f5',
+          padding: '10px',
+          margin: '15px 0',
+          borderRadius: '5px',
+          textAlign: 'left',
+        }}
+      >
         <strong>저장된 데이터:</strong>
         <pre style={{ fontSize: '12px', margin: '5px 0' }}>
           {JSON.stringify(data, null, 2)}
@@ -358,15 +374,16 @@ function LocalStorageEffect() {
 
 function SideEffects() {
   return (
-    <div className="component-section">
+    <div className='component-section'>
       <h2>2. useEffect 의존성 배열 이해하기</h2>
       <p>
-        useEffect는 사이드 이펙트를 처리하는 Hook입니다. 
-        의존성 배열을 통해 언제 사이드 이펙트가 실행될지 제어할 수 있습니다.
+        useEffect는 사이드 이펙트를 처리하는 Hook입니다. 의존성 배열을 통해 언제
+        사이드 이펙트가 실행될지 제어할 수 있습니다.
       </p>
 
-      <div className="code-example">
-        <strong>useEffect 의존성 배열 패턴:</strong><br/>
+      <div className='code-example'>
+        <strong>useEffect 의존성 배열 패턴:</strong>
+        <br />
         {`// 1. 빈 배열 - 마운트/언마운트 시에만
 useEffect(() => {
   // 초기화 작업
@@ -392,19 +409,30 @@ useEffect(() => {
       <DocumentTitleEffect />
       <LocalStorageEffect />
 
-      <div className="highlight">
+      <div className='highlight'>
         <strong>사이드 이펙트의 종류:</strong>
         <ul style={{ textAlign: 'left', display: 'inline-block' }}>
-          <li><strong>타이머:</strong> setInterval, setTimeout</li>
-          <li><strong>이벤트 리스너:</strong> addEventListener</li>
-          <li><strong>구독:</strong> WebSocket, API 구독</li>
-          <li><strong>DOM 조작:</strong> document.title, localStorage</li>
-          <li><strong>API 호출:</strong> fetch, axios</li>
+          <li>
+            <strong>타이머:</strong> setInterval, setTimeout
+          </li>
+          <li>
+            <strong>이벤트 리스너:</strong> addEventListener
+          </li>
+          <li>
+            <strong>구독:</strong> WebSocket, API 구독
+          </li>
+          <li>
+            <strong>DOM 조작:</strong> document.title, localStorage
+          </li>
+          <li>
+            <strong>API 호출:</strong> fetch, axios
+          </li>
         </ul>
       </div>
 
-      <div className="code-example">
-        <strong>클린업 함수 작성 패턴:</strong><br/>
+      <div className='code-example'>
+        <strong>클린업 함수 작성 패턴:</strong>
+        <br />
         {`useEffect(() => {
   // 1. 타이머 정리
   const timer = setInterval(() => {}, 1000);
