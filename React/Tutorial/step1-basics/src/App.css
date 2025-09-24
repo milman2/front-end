@@ -1,0 +1,56 @@
+.App {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  margin-bottom: 30px;
+  border-radius: 10px;
+}
+
+.App-main {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.component-section {
+  border: 2px solid #61dafb;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.component-section h2 {
+  color: #282c34;
+  margin-bottom: 15px;
+}
+
+.component-section p {
+  color: #666;
+  line-height: 1.6;
+}
+
+.code-example {
+  background-color: #f1f3f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 15px 0;
+  text-align: left;
+  font-family: 'Courier New', monospace;
+  overflow-x: auto;
+}
+
+.highlight {
+  background-color: #fff3cd;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 4px solid #ffc107;
+  margin: 10px 0;
+}
