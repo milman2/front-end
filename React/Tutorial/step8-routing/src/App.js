@@ -9,6 +9,7 @@ import ProductDetail from './components/ProductDetail';
 import UserProfile from './components/UserProfile';
 import EditProfile from './components/EditProfile';
 import UserPosts from './components/UserPosts';
+import PostDetail from './components/PostDetail';
 import Contact from './components/Contact';
 import { initializeUsers } from './utils/initializeData';
 
@@ -29,6 +30,7 @@ function App() {
             <Route path='/user/:id' element={<UserProfile />} />
             <Route path='/user/:id/edit' element={<EditProfile />} />
             <Route path='/user/:id/posts' element={<UserPosts />} />
+            <Route path='/user/:id/post/:postId' element={<PostDetail />} />
             <Route path='/contact' element={<Contact />} />
           </Routes>
         </main>
