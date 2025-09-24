@@ -1,0 +1,258 @@
+.virtualization-example {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.virtualization-example h2 {
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.control-group label {
+  font-weight: bold;
+  color: #555;
+  min-width: 80px;
+}
+
+.control-group select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  min-width: 120px;
+}
+
+.performance-info {
+  background-color: #e3f2fd;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.performance-info h3 {
+  color: #1976d2;
+  margin-bottom: 15px;
+}
+
+.performance-info p {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.list-view {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.list-container {
+  height: 500px;
+  width: 100%;
+}
+
+.normal-list,
+.virtual-list {
+  height: 100%;
+}
+
+.normal-list h3,
+.virtual-list h3 {
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+  color: #495057;
+  font-size: 18px;
+}
+
+.normal-list .list-container {
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.normal-item,
+.virtual-item {
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s;
+}
+
+.normal-item:hover,
+.virtual-item:hover {
+  background-color: #f8f9fa;
+}
+
+.normal-item:last-child,
+.virtual-item:last-child {
+  border-bottom: none;
+}
+
+.item-content {
+  padding: 15px 20px;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.item-header h4 {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.department {
+  background-color: #007bff;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status.in-stock {
+  background-color: #28a745;
+  color: white;
+}
+
+.status.out-of-stock {
+  background-color: #dc3545;
+  color: white;
+}
+
+.email {
+  margin: 4px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.category {
+  margin: 4px 0;
+  color: #666;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.item-details {
+  display: flex;
+  gap: 20px;
+  margin: 8px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #28a745;
+  margin: 8px 0;
+}
+
+.description {
+  margin: 8px 0 0 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.item-meta {
+  margin-top: 8px;
+  color: #999;
+  font-size: 12px;
+}
+
+.explanation {
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.explanation h3 {
+  color: #856404;
+  margin-bottom: 15px;
+}
+
+.explanation ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.explanation li {
+  margin: 8px 0;
+  color: #856404;
+  line-height: 1.5;
+}
+
+.explanation strong {
+  color: #6c5ce7;
+}
+
+/* 가상화 리스트 스크롤바 스타일링 */
+.list-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.list-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.list-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .control-group {
+    justify-content: space-between;
+  }
+  
+  .item-details {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .list-container {
+    height: 400px;
+  }
+}
