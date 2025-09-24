@@ -17,7 +17,10 @@ const PerformanceMonitoringExample: React.FC = () => {
   // Web Vitals 메트릭 수집
   useEffect(() => {
     const collectWebVitals = () => {
+      console.log('Web Vitals 수집 시작...');
+
       getCLS((metric) => {
+        console.log('CLS 측정됨:', metric);
         setMetrics((prev) => [
           ...prev.filter((m) => m.name !== 'CLS'),
           {
@@ -30,6 +33,7 @@ const PerformanceMonitoringExample: React.FC = () => {
       });
 
       getFID((metric) => {
+        console.log('FID 측정됨:', metric);
         setMetrics((prev) => [
           ...prev.filter((m) => m.name !== 'FID'),
           {
@@ -42,6 +46,7 @@ const PerformanceMonitoringExample: React.FC = () => {
       });
 
       getFCP((metric) => {
+        console.log('FCP 측정됨:', metric);
         setMetrics((prev) => [
           ...prev.filter((m) => m.name !== 'FCP'),
           {
@@ -54,6 +59,7 @@ const PerformanceMonitoringExample: React.FC = () => {
       });
 
       getLCP((metric) => {
+        console.log('LCP 측정됨:', metric);
         setMetrics((prev) => [
           ...prev.filter((m) => m.name !== 'LCP'),
           {
@@ -66,6 +72,7 @@ const PerformanceMonitoringExample: React.FC = () => {
       });
 
       getTTFB((metric) => {
+        console.log('TTFB 측정됨:', metric);
         setMetrics((prev) => [
           ...prev.filter((m) => m.name !== 'TTFB'),
           {
@@ -165,6 +172,61 @@ const PerformanceMonitoringExample: React.FC = () => {
   const handleStartMonitoring = () => {
     setIsMonitoring(true);
     setMetrics([]);
+
+    // 실제 측정 가능한 성능 메트릭 추가
+    const addRealTimeMetrics = () => {
+      const navigation = performance.getEntriesByType(
+        'navigation'
+      )[0] as PerformanceNavigationTiming;
+      const paintEntries = performance.getEntriesByType('paint');
+
+      const newMetrics: PerformanceMetric[] = [];
+
+      if (navigation) {
+        newMetrics.push({
+          name: 'DOM 로딩 시간',
+          value: Math.round(
+            navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart
+          ),
+          rating: 'good',
+          description: 'DOM 콘텐츠 로딩 완료 시간',
+        });
+
+        newMetrics.push({
+          name: '페이지 로딩 시간',
+          value: Math.round(navigation.loadEventEnd - navigation.loadEventStart),
+          rating: 'good',
+          description: '페이지 완전 로딩 시간',
+        });
+      }
+
+      if (paintEntries.length > 0) {
+        const fcp = paintEntries.find((entry) => entry.name === 'first-contentful-paint');
+        if (fcp) {
+          newMetrics.push({
+            name: 'FCP (실제)',
+            value: Math.round(fcp.startTime),
+            rating: 'good',
+            description: '첫 콘텐츠 렌더링 시간 (실제 측정)',
+          });
+        }
+      }
+
+      // 메모리 사용량
+      if ('memory' in performance) {
+        const memory = (performance as any).memory;
+        newMetrics.push({
+          name: '메모리 사용량',
+          value: Math.round(memory.usedJSHeapSize / 1024 / 1024),
+          rating: 'good',
+          description: 'JavaScript 힙 메모리 사용량 (MB)',
+        });
+      }
+
+      setMetrics(newMetrics);
+    };
+
+    addRealTimeMetrics();
   };
 
   const handleStopMonitoring = () => {
