@@ -2,6 +2,7 @@ import React from 'react';
 import BuildInfo from './components/BuildInfo';
 import PerformanceMetrics from './components/PerformanceMetrics';
 import DeploymentStatus from './components/DeploymentStatus';
+import DeploymentGuide from './components/DeploymentGuide';
 import './App.css';
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
           <PerformanceMetrics />
 
           <DeploymentStatus />
+
+          <DeploymentGuide />
         </div>
 
         <div className="build-commands">

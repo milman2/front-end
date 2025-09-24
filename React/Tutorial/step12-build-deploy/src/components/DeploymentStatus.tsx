@@ -12,19 +12,25 @@ const DeploymentStatus: React.FC = () => {
     {
       platform: 'Netlify',
       url: 'https://step12-build-deploy.netlify.app',
-      status: 'deployed',
-      lastDeploy: new Date().toLocaleString(),
+      status: 'failed',
+      lastDeploy: '배포되지 않음',
     },
     {
       platform: 'Vercel',
       url: 'https://step12-build-deploy.vercel.app',
-      status: 'deployed',
-      lastDeploy: new Date().toLocaleString(),
+      status: 'failed',
+      lastDeploy: '배포되지 않음',
     },
     {
       platform: 'GitHub Pages',
       url: 'https://username.github.io/step12-build-deploy',
-      status: 'building',
+      status: 'failed',
+      lastDeploy: '배포되지 않음',
+    },
+    {
+      platform: '로컬 개발 서버',
+      url: 'http://localhost:3000',
+      status: 'deployed',
       lastDeploy: new Date().toLocaleString(),
     },
   ];
@@ -45,11 +51,11 @@ const DeploymentStatus: React.FC = () => {
   const getStatusText = (status: string) => {
     switch (status) {
       case 'deployed':
-        return '배포됨';
+        return '실행 중';
       case 'building':
         return '빌드 중';
       case 'failed':
-        return '실패';
+        return '배포 안됨';
       default:
         return '알 수 없음';
     }
