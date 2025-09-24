@@ -1,0 +1,83 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.App-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.5rem;
+}
+
+.App-header p {
+  margin: 0;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.App-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.component-section {
+  background-color: white;
+  margin-bottom: 30px;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.component-section h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.button-examples {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.testing-info {
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.testing-info h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.testing-info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.testing-info li {
+  padding: 8px 0;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.testing-info li:before {
+  content: '';
+  margin-right: 10px;
+}
+
+/* Import component styles */
+@import './components/Button.css';
+@import './components/Counter.css';
+@import './components/TodoList.css';

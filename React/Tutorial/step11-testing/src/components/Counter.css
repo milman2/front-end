@@ -1,0 +1,31 @@
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.counter-display {
+  font-size: 48px;
+  font-weight: bold;
+  color: #333;
+  min-width: 80px;
+  text-align: center;
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  border: 2px solid #dee2e6;
+}
+
+.counter-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
