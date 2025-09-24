@@ -4,6 +4,7 @@ import UseStateExample from './components/UseStateExample';
 import UseEffectExample from './components/UseEffectExample';
 import UseContextExample from './components/UseContextExample';
 import UseReducerExample from './components/UseReducerExample';
+import UseRefExample from './components/UseRefExample';
 import CustomHookExample from './components/CustomHookExample';
 import PerformanceOptimization from './components/PerformanceOptimization';
 
@@ -20,6 +21,7 @@ function App() {
         <UseEffectExample />
         <UseContextExample />
         <UseReducerExample />
+        <UseRefExample />
         <CustomHookExample />
         <PerformanceOptimization />
       </main>

@@ -35,7 +35,13 @@ React Hooks를 완전히 익히고, 상태 관리와 사이드 이펙트를 효�
 - 다양한 커스텀 Hook 예제
 - Hook 조합 패턴
 
-### 6. useMemo, useCallback으로 성능 최적화하기
+### 6. useRef Hook으로 DOM 조작하기
+- useRef의 기본 사용법
+- DOM 요소에 직접 접근
+- 변경 가능한 값 저장
+- 이전 값 추적하기
+
+### 7. useMemo, useCallback으로 성능 최적화하기
 - 메모이제이션 개념
 - 성능 최적화 전략
 - React.memo와 함께 사용
@@ -65,6 +71,7 @@ step3-hooks/
 │   │   ├── UseEffectExample.js       # useEffect 완전 정복
 │   │   ├── UseContextExample.js      # Context API 활용
 │   │   ├── UseReducerExample.js      # useReducer 패턴
+│   │   ├── UseRefExample.js          # useRef DOM 조작
 │   │   ├── CustomHookExample.js      # 커스텀 Hook 만들기
 │   │   └── PerformanceOptimization.js # 성능 최적화
 │   ├── hooks/
@@ -104,6 +111,12 @@ step3-hooks/
 - **dispatch**: 액션 전달
 - **복잡한 상태**: 여러 상태를 하나로 관리
 - **예측 가능성**: 액션 기반 상태 변경
+
+### useRef Hook
+- **DOM 접근**: `useRef(null)`로 DOM 요소 참조
+- **값 저장**: 리렌더링 없이 값 저장
+- **이전 값 추적**: useEffect와 함께 사용
+- **포커스 관리**: input 요소 포커스 제어
 
 ### 커스텀 Hook
 - **명명 규칙**: "use"로 시작
@@ -198,6 +211,33 @@ function useFetch(url) {
   }, [url]);
   
   return { data, loading, error };
+}
+```
+
+### usePrevious (useRef 활용)
+```jsx
+function usePrevious(value) {
+  const ref = useRef();
+  
+  useEffect(() => {
+    ref.current = value;
+  });
+  
+  return ref.current;
+}
+
+// 사용 예제
+function Counter() {
+  const [count, setCount] = useState(0);
+  const prevCount = usePrevious(count);
+  
+  return (
+    <div>
+      <p>현재: {count}</p>
+      <p>이전: {prevCount}</p>
+      <button onClick={() => setCount(count + 1)}>증가</button>
+    </div>
+  );
 }
 ```
 
