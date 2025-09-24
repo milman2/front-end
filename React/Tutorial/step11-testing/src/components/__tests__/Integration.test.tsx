@@ -49,10 +49,7 @@ describe('Integration Tests', () => {
 
         return (
           <div>
-            <Counter
-              initialValue={todoCount}
-              onCountChange={setTodoCount}
-            />
+            <Counter initialValue={todoCount} onCountChange={setTodoCount} />
             <TodoList onTodoChange={todos => setTodoCount(todos.length)} />
           </div>
         );

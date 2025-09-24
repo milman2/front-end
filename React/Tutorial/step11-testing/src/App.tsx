@@ -46,7 +46,10 @@ function App() {
               <li>✅ 커스텀 훅 테스트</li>
               <li>✅ 유틸리티 함수 테스트</li>
             </ul>
-            <p><strong>Step 11:</strong> React Testing Library를 사용한 포괄적인 테스트 구현</p>
+            <p>
+              <strong>Step 11:</strong> React Testing Library를 사용한 포괄적인
+              테스트 구현
+            </p>
           </div>
         </section>
       </main>
