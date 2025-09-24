@@ -132,10 +132,10 @@ function DependencyArrayExample() {
     addLog(`name 의존성: name이 ${name}로 변경됨`);
   }, [name]);
 
-  // 의존성 없음 - 매 렌더링마다 실행
-  useEffect(() => {
-    addLog('의존성 없음: 매 렌더링마다 실행');
-  });
+  // 의존성 없음 - 매 렌더링마다 실행 (주의: 무한 루프 위험!)
+  // useEffect(() => {
+  //   addLog('의존성 없음: 매 렌더링마다 실행');
+  // }); // 실제로는 이 패턴을 사용하지 않습니다 - 무한 루프 발생!
 
   return (
     <div className="demo-box">
