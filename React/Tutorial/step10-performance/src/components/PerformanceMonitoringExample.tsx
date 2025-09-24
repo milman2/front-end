@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
 import './PerformanceMonitoringExample.css';
 
@@ -9,18 +9,10 @@ interface PerformanceMetric {
   description: string;
 }
 
-interface RenderTime {
-  component: string;
-  renderTime: number;
-  timestamp: number;
-}
-
 const PerformanceMonitoringExample: React.FC = () => {
   const [metrics, setMetrics] = useState<PerformanceMetric[]>([]);
-  const [renderTimes, setRenderTimes] = useState<RenderTime[]>([]);
   const [isMonitoring, setIsMonitoring] = useState(false);
   const [memoryUsage, setMemoryUsage] = useState<any>(null);
-  const renderStartTime = useRef<number>(0);
 
   // Web Vitals 메트릭 수집
   useEffect(() => {
@@ -115,31 +107,25 @@ const PerformanceMonitoringExample: React.FC = () => {
     };
   }, [isMonitoring]);
 
-  // 컴포넌트 렌더링 시간 측정
-  const measureRenderTime = useCallback((componentName: string, renderFn: () => void) => {
-    renderStartTime.current = performance.now();
-    renderFn();
-    const renderTime = performance.now() - renderStartTime.current;
-
-    setRenderTimes((prev) => [
-      ...prev,
-      {
-        component: componentName,
-        renderTime: Math.round(renderTime * 100) / 100,
-        timestamp: Date.now(),
-      },
-    ]);
-  }, []);
+  // 컴포넌트 렌더링 시간 측정 (각 컴포넌트에서 직접 처리)
 
   // 성능 테스트 컴포넌트들
   const HeavyComponent = () => {
     const [data, setData] = useState<number[]>([]);
+    const [renderTime, setRenderTime] = useState<number>(0);
+    const hasMeasured = useRef(false);
 
     useEffect(() => {
-      measureRenderTime('HeavyComponent', () => {
+      if (!hasMeasured.current) {
+        const startTime = performance.now();
         const heavyData = Array.from({ length: 10000 }, () => Math.random());
+        const endTime = performance.now();
+
+        // 데이터 설정과 성능 측정을 한 번에 처리
         setData(heavyData);
-      });
+        setRenderTime(Math.round((endTime - startTime) * 100) / 100);
+        hasMeasured.current = true;
+      }
     }, []);
 
     return (
@@ -147,21 +133,31 @@ const PerformanceMonitoringExample: React.FC = () => {
         <h4>무거운 컴포넌트</h4>
         <p>10,000개의 랜덤 데이터 처리</p>
         <p>데이터 개수: {data.length}</p>
+        <p>렌더링 시간: {renderTime}ms</p>
       </div>
     );
   };
 
   const LightComponent = () => {
+    const [renderTime, setRenderTime] = useState<number>(0);
+    const hasMeasured = useRef(false);
+
     useEffect(() => {
-      measureRenderTime('LightComponent', () => {
+      if (!hasMeasured.current) {
+        const startTime = performance.now();
         // 가벼운 작업
-      });
+        const endTime = performance.now();
+
+        setRenderTime(Math.round((endTime - startTime) * 100) / 100);
+        hasMeasured.current = true;
+      }
     }, []);
 
     return (
       <div className="light-component">
         <h4>가벼운 컴포넌트</h4>
         <p>최소한의 렌더링 작업</p>
+        <p>렌더링 시간: {renderTime}ms</p>
       </div>
     );
   };
@@ -169,7 +165,6 @@ const PerformanceMonitoringExample: React.FC = () => {
   const handleStartMonitoring = () => {
     setIsMonitoring(true);
     setMetrics([]);
-    setRenderTimes([]);
   };
 
   const handleStopMonitoring = () => {
@@ -178,7 +173,6 @@ const PerformanceMonitoringExample: React.FC = () => {
 
   const handleClearData = () => {
     setMetrics([]);
-    setRenderTimes([]);
     setMemoryUsage(null);
   };
 
@@ -285,24 +279,6 @@ const PerformanceMonitoringExample: React.FC = () => {
           ) : (
             <p>메모리 정보를 사용할 수 없습니다.</p>
           )}
-        </div>
-
-        <div className="render-times-section">
-          <h3>컴포넌트 렌더링 시간</h3>
-          <div className="render-times-list">
-            {renderTimes
-              .slice(-10)
-              .reverse()
-              .map((render, index) => (
-                <div key={index} className="render-time-item">
-                  <span className="component-name">{render.component}</span>
-                  <span className="render-time">{render.renderTime}ms</span>
-                  <span className="timestamp">
-                    {new Date(render.timestamp).toLocaleTimeString()}
-                  </span>
-                </div>
-              ))}
-          </div>
         </div>
 
         <div className="performance-test-section">

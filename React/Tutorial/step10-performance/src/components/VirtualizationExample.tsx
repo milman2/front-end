@@ -13,15 +13,6 @@ interface User {
   description: string;
 }
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  category: string;
-  description: string;
-  inStock: boolean;
-}
-
 // 가상화 예제 컴포넌트
 
 const VirtualizationExample: React.FC = () => {
