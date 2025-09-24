@@ -95,6 +95,49 @@ step1-basics/
 - React 18부터는 `ReactDOM.render` 대신 `ReactDOM.createRoot`를 사용합니다
 - 모든 컴포넌트는 대문자로 시작해야 합니다
 
+## 🔧 문제 해결
+
+### 보안 취약점 해결
+프로젝트 설치 시 다음과 같은 보안 취약점들이 발견되었습니다:
+
+#### 발견된 취약점
+- **High Severity (6개)**: `nth-check` 패키지의 정규표현식 복잡도 문제
+- **Moderate Severity (3개)**: `postcss` 라인 리턴 파싱 오류, `webpack-dev-server` 소스코드 탈취 위험
+
+#### 해결 방법
+`package.json`에 `overrides` 섹션을 추가하여 안전하게 해결:
+
+```json
+{
+  "overrides": {
+    "nth-check": ">=2.0.1",
+    "postcss": ">=8.4.31",
+    "webpack-dev-server": "4.15.2"
+  }
+}
+```
+
+### webpack-dev-server 호환성 문제 해결
+React 개발 서버 실행 시 다음과 같은 오류가 발생했습니다:
+
+```
+Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+- options has an unknown property 'onAfterSetupMiddleware'
+```
+
+#### 원인
+- `webpack-dev-server` 5.2.2 버전에서 `onAfterSetupMiddleware` 옵션이 제거됨
+- `react-scripts` 5.0.1이 아직 이 변경사항을 반영하지 못함
+
+#### 해결 방법
+- `webpack-dev-server`를 4.15.2 버전으로 다운그레이드
+- `react-scripts` 5.0.1과의 호환성 확보
+
+### 최종 결과
+- ✅ **0개의 보안 취약점** (이전 9개에서 완전 해결)
+- ✅ **React 개발 서버 정상 실행** (`http://localhost:3000`)
+- ✅ **모든 기능 정상 작동**
+
 ## 🎉 다음 단계
 
 이 단계를 완료했다면 다음 단계로 진행하세요:
