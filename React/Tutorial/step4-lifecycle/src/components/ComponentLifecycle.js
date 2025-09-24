@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 // 생명주기를 추적하는 컴포넌트
-function LifecycleTracker({ name, onLog }) {
+function LifecycleTracker({ name, onLog, onUnmount }) {
   const [count, setCount] = useState(0);
-  const [mounted, setMounted] = useState(true);
 
   // 컴포넌트 마운트 시
   useEffect(() => {
@@ -17,10 +16,13 @@ function LifecycleTracker({ name, onLog }) {
 
   // count가 변경될 때마다
   useEffect(() => {
-    if (mounted) {
-      onLog(`${name}: count가 ${count}로 업데이트되었습니다.`);
-    }
-  }, [count, name, onLog, mounted]);
+    onLog(`${name}: count가 ${count}로 업데이트되었습니다.`);
+  }, [count, name, onLog]);
+
+  const handleUnmount = () => {
+    onLog(`${name}: 언마운트 버튼이 클릭되었습니다.`);
+    onUnmount?.(); // 부모 컴포넌트에게 언마운트 요청
+  };
 
   return (
     <div style={{ 
@@ -34,7 +36,7 @@ function LifecycleTracker({ name, onLog }) {
       <button className="button" onClick={() => setCount(count + 1)}>
         증가
       </button>
-      <button className="button" onClick={() => setMounted(false)}>
+      <button className="button" onClick={handleUnmount}>
         언마운트
       </button>
     </div>
@@ -76,6 +78,7 @@ function LifecycleLogger() {
         <LifecycleTracker 
           name="Tracker" 
           onLog={addLog}
+          onUnmount={() => setShowTracker(false)}
         />
       )}
 
