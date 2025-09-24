@@ -7,6 +7,8 @@ import About from './components/About';
 import Products from './components/Products';
 import ProductDetail from './components/ProductDetail';
 import UserProfile from './components/UserProfile';
+import EditProfile from './components/EditProfile';
+import UserPosts from './components/UserPosts';
 import Contact from './components/Contact';
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
             <Route path='/products' element={<Products />} />
             <Route path='/product/:id' element={<ProductDetail />} />
             <Route path='/user/:id' element={<UserProfile />} />
+            <Route path='/user/:id/edit' element={<EditProfile />} />
+            <Route path='/user/:id/posts' element={<UserPosts />} />
             <Route path='/contact' element={<Contact />} />
           </Routes>
         </main>
