@@ -1,0 +1,70 @@
+/* React 6단계: 조건부 렌더링과 리스트 - 메인 스타일 */
+
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.App-header {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 30px 20px;
+  text-align: center;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.App-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.5em;
+  font-weight: 300;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.App-header p {
+  margin: 0;
+  font-size: 1.2em;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.App-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 2em;
+  }
+
+  .App-header p {
+    font-size: 1em;
+  }
+
+  .App-main {
+    padding: 15px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .App-header {
+    padding: 20px 15px;
+  }
+
+  .App-header h1 {
+    font-size: 1.8em;
+  }
+
+  .App-main {
+    padding: 10px;
+    gap: 15px;
+  }
+}
