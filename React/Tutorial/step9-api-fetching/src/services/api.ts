@@ -17,12 +17,12 @@ const apiClient: AxiosInstance = axios.create({
 
 // 요청 인터셉터
 apiClient.interceptors.request.use(
-  (config) => {
-    console.log(`🚀 API 요청: ${config.method?.toUpperCase()} ${config.url}`);
+  config => {
+    // console.log(`🚀 API 요청: ${config.method?.toUpperCase()} ${config.url}`);
     return config;
   },
-  (error) => {
-    console.error('❌ 요청 에러:', error);
+  error => {
+    // console.error('❌ 요청 에러:', error);
     return Promise.reject(error);
   }
 );
@@ -30,11 +30,11 @@ apiClient.interceptors.request.use(
 // 응답 인터셉터
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
-    console.log(`✅ API 응답: ${response.status} ${response.config.url}`);
+    // console.log(`✅ API 응답: ${response.status} ${response.config.url}`);
     return response;
   },
-  (error) => {
-    console.error('❌ 응답 에러:', error);
+  error => {
+    // console.error('❌ 응답 에러:', error);
     const apiError: ApiError = {
       message: error.message || '알 수 없는 오류가 발생했습니다.',
       status: error.response?.status,
@@ -57,7 +57,7 @@ export class FetchApiService {
     options: RequestInit = {}
   ): Promise<ApiResponse<T>> {
     const url = `${this.baseUrl}${endpoint}`;
-    
+
     try {
       const response = await fetch(url, {
         headers: {
@@ -72,17 +72,18 @@ export class FetchApiService {
       }
 
       const data = await response.json();
-      
+
       return {
         data,
         status: response.status,
         statusText: response.statusText,
       };
     } catch (error) {
-      throw {
+      const apiError: ApiError = {
         message: error instanceof Error ? error.message : '알 수 없는 오류',
         status: (error as any)?.status,
-      } as ApiError;
+      };
+      throw apiError;
     }
   }
 
@@ -160,7 +161,9 @@ export class AxiosApiService {
 
   // 댓글 관련 API
   async getComments(postId: number): Promise<Comment[]> {
-    const response = await this.client.get<Comment[]>(`/posts/${postId}/comments`);
+    const response = await this.client.get<Comment[]>(
+      `/posts/${postId}/comments`
+    );
     return response.data;
   }
 

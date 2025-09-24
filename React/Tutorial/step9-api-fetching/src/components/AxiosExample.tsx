@@ -9,14 +9,16 @@ const AxiosExample: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<ApiError | null>(null);
-  const [selectedTab, setSelectedTab] = useState<'users' | 'posts' | 'todos'>('users');
+  const [selectedTab, setSelectedTab] = useState<'users' | 'posts' | 'todos'>(
+    'users'
+  );
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
   // 사용자 목록 가져오기
   const fetchUsers = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const usersData = await axiosApiService.getUsers();
       setUsers(usersData);
@@ -31,7 +33,7 @@ const AxiosExample: React.FC = () => {
   const fetchPosts = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const postsData = await axiosApiService.getPosts();
       setPosts(postsData);
@@ -46,7 +48,7 @@ const AxiosExample: React.FC = () => {
   const fetchTodos = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const todosData = await axiosApiService.getTodos();
       setTodos(todosData);
@@ -61,7 +63,7 @@ const AxiosExample: React.FC = () => {
   const fetchUserTodos = async (userId: number) => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const userTodos = await axiosApiService.getUserTodos(userId);
       setTodos(userTodos);
@@ -77,14 +79,14 @@ const AxiosExample: React.FC = () => {
   const createPost = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const newPost = await axiosApiService.createPost({
         userId: 1,
         title: '새로운 게시글',
         body: 'Axios를 사용하여 생성된 게시글입니다.',
       });
-      
+
       setPosts(prev => [newPost, ...prev]);
       alert('게시글이 성공적으로 생성되었습니다!');
     } catch (err) {
@@ -98,16 +100,16 @@ const AxiosExample: React.FC = () => {
   const updatePost = async (postId: number) => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const updatedPost = await axiosApiService.updatePost(postId, {
         title: '업데이트된 게시글',
         body: 'Axios를 사용하여 업데이트된 게시글입니다.',
       });
-      
-      setPosts(prev => prev.map(post => 
-        post.id === postId ? updatedPost : post
-      ));
+
+      setPosts(prev =>
+        prev.map(post => (post.id === postId ? updatedPost : post))
+      );
       alert('게시글이 성공적으로 업데이트되었습니다!');
     } catch (err) {
       setError(err as ApiError);
@@ -124,7 +126,7 @@ const AxiosExample: React.FC = () => {
 
     setLoading(true);
     setError(null);
-    
+
     try {
       await axiosApiService.deletePost(postId);
       setPosts(prev => prev.filter(post => post.id !== postId));
@@ -149,7 +151,7 @@ const AxiosExample: React.FC = () => {
             <h3>사용자 목록</h3>
             {users.length > 0 ? (
               <div className="users-grid">
-                {users.slice(0, 6).map((user) => (
+                {users.slice(0, 6).map(user => (
                   <div
                     key={user.id}
                     className={`user-card ${selectedUserId === user.id ? 'selected' : ''}`}
@@ -179,17 +181,13 @@ const AxiosExample: React.FC = () => {
             </div>
             {posts.length > 0 ? (
               <div className="posts-list">
-                {posts.slice(0, 5).map((post) => (
+                {posts.slice(0, 5).map(post => (
                   <div key={post.id} className="post-card">
                     <h4>{post.title}</h4>
                     <p>{post.body}</p>
                     <div className="post-actions">
-                      <button onClick={() => updatePost(post.id)}>
-                        수정
-                      </button>
-                      <button onClick={() => deletePost(post.id)}>
-                        삭제
-                      </button>
+                      <button onClick={() => updatePost(post.id)}>수정</button>
+                      <button onClick={() => deletePost(post.id)}>삭제</button>
                     </div>
                   </div>
                 ))}
@@ -204,20 +202,18 @@ const AxiosExample: React.FC = () => {
         return (
           <div className="todos-section">
             <h3>
-              {selectedUserId 
-                ? `사용자 ${selectedUserId}의 할 일` 
-                : '전체 할 일 목록'
-              }
+              {selectedUserId
+                ? `사용자 ${selectedUserId}의 할 일`
+                : '전체 할 일 목록'}
             </h3>
             {todos.length > 0 ? (
               <div className="todos-list">
-                {todos.slice(0, 10).map((todo) => (
-                  <div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
-                    <input
-                      type="checkbox"
-                      checked={todo.completed}
-                      readOnly
-                    />
+                {todos.slice(0, 10).map(todo => (
+                  <div
+                    key={todo.id}
+                    className={`todo-item ${todo.completed ? 'completed' : ''}`}
+                  >
+                    <input type="checkbox" checked={todo.completed} readOnly />
                     <span>{todo.title}</span>
                   </div>
                 ))}
@@ -272,7 +268,7 @@ const AxiosExample: React.FC = () => {
       </div>
 
       {loading && <div className="loading">로딩 중...</div>}
-      
+
       {error && (
         <div className="error">
           <h3>오류 발생</h3>
@@ -281,14 +277,12 @@ const AxiosExample: React.FC = () => {
         </div>
       )}
 
-      <div className="content">
-        {renderContent()}
-      </div>
+      <div className="content">{renderContent()}</div>
 
       <div className="code-example">
         <h3>코드 예제</h3>
         <pre>
-{`// Axios 사용 예제
+          {`// Axios 사용 예제
 const fetchUsers = async () => {
   setLoading(true);
   setError(null);

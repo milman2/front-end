@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { User, Post, ApiError } from '../types/api';
+import { Post, ApiError } from '../types/api';
 import { axiosApiService } from '../services/api';
 import './ReactQueryExample.css';
 
 const ReactQueryExample: React.FC = () => {
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
-  const [selectedTab, setSelectedTab] = useState<'users' | 'posts' | 'mutations'>('users');
+  const [selectedTab, setSelectedTab] = useState<
+    'users' | 'posts' | 'mutations'
+  >('users');
   const queryClient = useQueryClient();
 
   // 사용자 목록 쿼리
@@ -20,7 +22,7 @@ const ReactQueryExample: React.FC = () => {
     queryKey: ['users'],
     queryFn: () => axiosApiService.getUsers(),
     staleTime: 5 * 60 * 1000, // 5분
-    cacheTime: 10 * 60 * 1000, // 10분
+    gcTime: 10 * 60 * 1000, // 10분 (cacheTime에서 gcTime으로 변경)
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,
   });
@@ -36,7 +38,7 @@ const ReactQueryExample: React.FC = () => {
     queryKey: ['posts'],
     queryFn: () => axiosApiService.getPosts(),
     staleTime: 2 * 60 * 1000, // 2분
-    cacheTime: 5 * 60 * 1000, // 5분
+    gcTime: 5 * 60 * 1000, // 5분 (cacheTime에서 gcTime으로 변경)
     refetchOnWindowFocus: false,
   });
 
@@ -56,8 +58,9 @@ const ReactQueryExample: React.FC = () => {
 
   // 게시글 생성 뮤테이션
   const createPostMutation = useMutation({
-    mutationFn: (newPost: Omit<Post, 'id'>) => axiosApiService.createPost(newPost),
-    onSuccess: (newPost) => {
+    mutationFn: (newPost: Omit<Post, 'id'>) =>
+      axiosApiService.createPost(newPost),
+    onSuccess: newPost => {
       // 게시글 목록 쿼리 무효화하여 새로고침
       queryClient.invalidateQueries({ queryKey: ['posts'] });
       alert(`게시글이 성공적으로 생성되었습니다! (ID: ${newPost.id})`);
@@ -71,7 +74,7 @@ const ReactQueryExample: React.FC = () => {
   const updatePostMutation = useMutation({
     mutationFn: ({ id, post }: { id: number; post: Partial<Post> }) =>
       axiosApiService.updatePost(id, post),
-    onSuccess: (updatedPost) => {
+    onSuccess: updatedPost => {
       // 게시글 목록 쿼리 무효화
       queryClient.invalidateQueries({ queryKey: ['posts'] });
       // 특정 게시글 쿼리도 무효화
@@ -118,26 +121,15 @@ const ReactQueryExample: React.FC = () => {
     });
   };
 
-  const handleUpdatePost = (postId: number) => {
-    updatePostMutation.mutate({
-      id: postId,
-      post: {
-        title: 'React Query로 업데이트된 게시글',
-        body: 'TanStack Query를 사용하여 업데이트된 게시글입니다.',
-      },
-    });
-  };
-
-  const handleDeletePost = (postId: number) => {
-    if (window.confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
-      deletePostMutation.mutate(postId);
-    }
-  };
-
   const renderUsers = () => {
-    if (usersLoading) return <div className="loading">사용자 목록을 불러오는 중...</div>;
-    if (usersError) return <div className="error">사용자 목록을 불러오는데 실패했습니다.</div>;
-    if (!users) return <div className="loading">사용자 데이터가 없습니다.</div>;
+    if (usersLoading)
+      return <div className="loading">사용자 목록을 불러오는 중...</div>;
+    if (usersError)
+      return (
+        <div className="error">사용자 목록을 불러오는데 실패했습니다.</div>
+      );
+    if (!users || !Array.isArray(users))
+      return <div className="loading">사용자 데이터가 없습니다.</div>;
 
     return (
       <div className="users-section">
@@ -151,7 +143,7 @@ const ReactQueryExample: React.FC = () => {
           </div>
         </div>
         <div className="users-grid">
-          {users.slice(0, 6).map((user) => (
+          {users.slice(0, 6).map(user => (
             <div
               key={user.id}
               className={`user-card ${selectedUserId === user.id ? 'selected' : ''}`}
@@ -181,7 +173,9 @@ const ReactQueryExample: React.FC = () => {
     if (currentLoading) {
       return (
         <div className="loading">
-          {selectedUserId ? '사용자 게시글을 불러오는 중...' : '게시글 목록을 불러오는 중...'}
+          {selectedUserId
+            ? '사용자 게시글을 불러오는 중...'
+            : '게시글 목록을 불러오는 중...'}
         </div>
       );
     }
@@ -189,12 +183,14 @@ const ReactQueryExample: React.FC = () => {
     if (currentError) {
       return (
         <div className="error">
-          {selectedUserId ? '사용자 게시글을 불러오는데 실패했습니다.' : '게시글 목록을 불러오는데 실패했습니다.'}
+          {selectedUserId
+            ? '사용자 게시글을 불러오는데 실패했습니다.'
+            : '게시글 목록을 불러오는데 실패했습니다.'}
         </div>
       );
     }
 
-    if (!currentPosts) {
+    if (!currentPosts || !Array.isArray(currentPosts)) {
       return <div className="loading">게시글 데이터가 없습니다.</div>;
     }
 
@@ -202,14 +198,15 @@ const ReactQueryExample: React.FC = () => {
       <div className="posts-section">
         <div className="section-header">
           <h3>
-            {selectedUserId 
-              ? `사용자 ${selectedUserId}의 게시글` 
-              : '전체 게시글 목록'
-            }
+            {selectedUserId
+              ? `사용자 ${selectedUserId}의 게시글`
+              : '전체 게시글 목록'}
           </h3>
           <div className="header-actions">
-            <button 
-              onClick={selectedUserId ? refetchUserPosts : refetchPosts} 
+            <button
+              onClick={() =>
+                selectedUserId ? refetchUserPosts() : refetchPosts()
+              }
               disabled={currentLoading}
             >
               새로고침
@@ -218,7 +215,7 @@ const ReactQueryExample: React.FC = () => {
           </div>
         </div>
         <div className="posts-list">
-          {currentPosts.slice(0, 5).map((post) => (
+          {currentPosts.slice(0, 5).map(post => (
             <div key={post.id} className="post-card">
               <h4>{post.title}</h4>
               <p>{post.body}</p>
@@ -246,14 +243,16 @@ const ReactQueryExample: React.FC = () => {
         <div className="mutation-actions">
           <div className="mutation-card">
             <h4>게시글 생성 (POST)</h4>
-            <button 
+            <button
               onClick={handleCreatePost}
               disabled={createPostMutation.isPending}
             >
               {createPostMutation.isPending ? '생성 중...' : '새 게시글 생성'}
             </button>
             {createPostMutation.isError && (
-              <p className="error-text">생성 실패: {(createPostMutation.error as ApiError)?.message}</p>
+              <p className="error-text">
+                생성 실패: {(createPostMutation.error as ApiError)?.message}
+              </p>
             )}
           </div>
 
@@ -261,7 +260,9 @@ const ReactQueryExample: React.FC = () => {
             <h4>게시글 업데이트 (PUT)</h4>
             <p>게시글 목록에서 "수정" 버튼을 클릭하세요.</p>
             {updatePostMutation.isError && (
-              <p className="error-text">업데이트 실패: {(updatePostMutation.error as ApiError)?.message}</p>
+              <p className="error-text">
+                업데이트 실패: {(updatePostMutation.error as ApiError)?.message}
+              </p>
             )}
           </div>
 
@@ -269,7 +270,9 @@ const ReactQueryExample: React.FC = () => {
             <h4>게시글 삭제 (DELETE)</h4>
             <p>게시글 목록에서 "삭제" 버튼을 클릭하세요.</p>
             {deletePostMutation.isError && (
-              <p className="error-text">삭제 실패: {(deletePostMutation.error as ApiError)?.message}</p>
+              <p className="error-text">
+                삭제 실패: {(deletePostMutation.error as ApiError)?.message}
+              </p>
             )}
           </div>
         </div>
@@ -316,7 +319,9 @@ const ReactQueryExample: React.FC = () => {
       )}
 
       {isFetching && !isLoading && (
-        <div className="fetching">백그라운드에서 데이터를 업데이트하고 있습니다...</div>
+        <div className="fetching">
+          백그라운드에서 데이터를 업데이트하고 있습니다...
+        </div>
       )}
 
       <div className="content">
@@ -350,7 +355,7 @@ const ReactQueryExample: React.FC = () => {
       <div className="code-example">
         <h3>코드 예제</h3>
         <pre>
-{`// React Query 사용 예제
+          {`// React Query 사용 예제
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 // 쿼리 정의

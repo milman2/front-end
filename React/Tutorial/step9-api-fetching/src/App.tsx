@@ -13,7 +13,7 @@ const queryClient = new QueryClient({
       retry: 3,
       retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
       staleTime: 5 * 60 * 1000, // 5분
-      cacheTime: 10 * 60 * 1000, // 10분
+      gcTime: 10 * 60 * 1000, // 10분 (cacheTime에서 gcTime으로 변경)
     },
     mutations: {
       retry: 1,
@@ -22,7 +22,9 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'fetch' | 'axios' | 'swr' | 'react-query'>('fetch');
+  const [activeTab, setActiveTab] = useState<
+    'fetch' | 'axios' | 'swr' | 'react-query'
+  >('fetch');
 
   const renderContent = () => {
     switch (activeTab) {
@@ -74,9 +76,7 @@ function App() {
           </button>
         </nav>
 
-        <main className="App-main">
-          {renderContent()}
-        </main>
+        <main className="App-main">{renderContent()}</main>
 
         <footer className="App-footer">
           <div className="footer-content">

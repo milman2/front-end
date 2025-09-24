@@ -14,7 +14,7 @@ const FetchExample: React.FC = () => {
   const fetchUsers = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await fetchApiService.getUsers();
       setUsers(response.data);
@@ -29,7 +29,7 @@ const FetchExample: React.FC = () => {
   const fetchUserPosts = async (userId: number) => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await fetchApiService.getUserPosts(userId);
       setPosts(response.data);
@@ -58,7 +58,7 @@ const FetchExample: React.FC = () => {
       </div>
 
       {loading && <div className="loading">로딩 중...</div>}
-      
+
       {error && (
         <div className="error">
           <h3>오류 발생</h3>
@@ -72,7 +72,7 @@ const FetchExample: React.FC = () => {
           <h3>사용자 목록</h3>
           {users.length > 0 ? (
             <div className="users-grid">
-              {users.slice(0, 6).map((user) => (
+              {users.slice(0, 6).map(user => (
                 <div
                   key={user.id}
                   className={`user-card ${selectedUserId === user.id ? 'selected' : ''}`}
@@ -92,14 +92,13 @@ const FetchExample: React.FC = () => {
 
         <div className="posts-section">
           <h3>
-            {selectedUserId 
-              ? `사용자 ${selectedUserId}의 게시글` 
-              : '사용자를 선택하여 게시글을 확인하세요'
-            }
+            {selectedUserId
+              ? `사용자 ${selectedUserId}의 게시글`
+              : '사용자를 선택하여 게시글을 확인하세요'}
           </h3>
           {posts.length > 0 ? (
             <div className="posts-list">
-              {posts.slice(0, 5).map((post) => (
+              {posts.slice(0, 5).map(post => (
                 <div key={post.id} className="post-card">
                   <h4>{post.title}</h4>
                   <p>{post.body}</p>
@@ -117,7 +116,7 @@ const FetchExample: React.FC = () => {
       <div className="code-example">
         <h3>코드 예제</h3>
         <pre>
-{`// Fetch API 사용 예제
+          {`// Fetch API 사용 예제
 const fetchUsers = async () => {
   setLoading(true);
   setError(null);

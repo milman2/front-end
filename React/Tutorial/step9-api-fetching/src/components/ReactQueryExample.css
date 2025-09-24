@@ -119,8 +119,12 @@
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .users-grid {
@@ -342,31 +346,31 @@
     gap: 10px;
     align-items: stretch;
   }
-  
+
   .header-actions {
     justify-content: center;
   }
-  
+
   .users-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .tabs {
     flex-direction: column;
   }
-  
+
   .tabs button {
     text-align: left;
   }
-  
+
   .features-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .mutation-actions {
     grid-template-columns: 1fr;
   }
-  
+
   .post-meta {
     flex-direction: column;
     gap: 5px;

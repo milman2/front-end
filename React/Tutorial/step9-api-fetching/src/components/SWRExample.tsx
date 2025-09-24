@@ -4,19 +4,12 @@ import { User, Post, ApiError } from '../types/api';
 import { axiosApiService } from '../services/api';
 import './SWRExample.css';
 
-// SWR fetcher 함수
-const fetcher = (url: string) => {
-  if (url.includes('/users')) {
-    return axiosApiService.getUsers();
-  }
-  if (url.includes('/posts')) {
-    return axiosApiService.getPosts();
-  }
-  if (url.includes('/posts?userId=')) {
-    const userId = url.split('userId=')[1];
-    return axiosApiService.getUserPosts(parseInt(userId));
-  }
-  return Promise.reject(new Error('Unknown endpoint'));
+// SWR fetcher 함수들
+const usersFetcher = () => axiosApiService.getUsers();
+const postsFetcher = () => axiosApiService.getPosts();
+const userPostsFetcher = (url: string) => {
+  const userId = url.split('userId=')[1];
+  return axiosApiService.getUserPosts(parseInt(userId));
 };
 
 const SWRExample: React.FC = () => {
@@ -29,7 +22,7 @@ const SWRExample: React.FC = () => {
     error: usersError,
     isLoading: usersLoading,
     mutate: mutateUsers,
-  } = useSWR<User[]>('/users', fetcher, {
+  } = useSWR<User[]>('/users', usersFetcher, {
     revalidateOnFocus: true,
     revalidateOnReconnect: true,
     refreshInterval: 30000, // 30초마다 자동 새로고침
@@ -40,7 +33,7 @@ const SWRExample: React.FC = () => {
     error: postsError,
     isLoading: postsLoading,
     mutate: mutatePosts,
-  } = useSWR<Post[]>('/posts', fetcher, {
+  } = useSWR<Post[]>('/posts', postsFetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: true,
   });
@@ -52,7 +45,7 @@ const SWRExample: React.FC = () => {
     mutate: mutateUserPosts,
   } = useSWR<Post[]>(
     selectedUserId ? `/posts?userId=${selectedUserId}` : null,
-    fetcher,
+    selectedUserId ? userPostsFetcher : null,
     {
       revalidateOnFocus: false,
     }
@@ -60,7 +53,6 @@ const SWRExample: React.FC = () => {
 
   // 에러 처리
   const error = usersError || postsError || userPostsError;
-  const isLoading = usersLoading || postsLoading || userPostsLoading;
 
   // 수동 새로고침 함수들
   const refreshUsers = () => {
@@ -84,8 +76,12 @@ const SWRExample: React.FC = () => {
   };
 
   const renderUsers = () => {
-    if (usersLoading) return <div className="loading">사용자 목록을 불러오는 중...</div>;
-    if (usersError) return <div className="error">사용자 목록을 불러오는데 실패했습니다.</div>;
+    if (usersLoading)
+      return <div className="loading">사용자 목록을 불러오는 중...</div>;
+    if (usersError)
+      return (
+        <div className="error">사용자 목록을 불러오는데 실패했습니다.</div>
+      );
     if (!users) return <div className="loading">사용자 데이터가 없습니다.</div>;
 
     return (
@@ -97,7 +93,7 @@ const SWRExample: React.FC = () => {
           </button>
         </div>
         <div className="users-grid">
-          {users.slice(0, 6).map((user) => (
+          {users.slice(0, 6).map(user => (
             <div
               key={user.id}
               className={`user-card ${selectedUserId === user.id ? 'selected' : ''}`}
@@ -126,7 +122,9 @@ const SWRExample: React.FC = () => {
     if (currentLoading) {
       return (
         <div className="loading">
-          {selectedUserId ? '사용자 게시글을 불러오는 중...' : '게시글 목록을 불러오는 중...'}
+          {selectedUserId
+            ? '사용자 게시글을 불러오는 중...'
+            : '게시글 목록을 불러오는 중...'}
         </div>
       );
     }
@@ -134,7 +132,9 @@ const SWRExample: React.FC = () => {
     if (currentError) {
       return (
         <div className="error">
-          {selectedUserId ? '사용자 게시글을 불러오는데 실패했습니다.' : '게시글 목록을 불러오는데 실패했습니다.'}
+          {selectedUserId
+            ? '사용자 게시글을 불러오는데 실패했습니다.'
+            : '게시글 목록을 불러오는데 실패했습니다.'}
         </div>
       );
     }
@@ -147,20 +147,19 @@ const SWRExample: React.FC = () => {
       <div className="posts-section">
         <div className="section-header">
           <h3>
-            {selectedUserId 
-              ? `사용자 ${selectedUserId}의 게시글` 
-              : '전체 게시글 목록'
-            }
+            {selectedUserId
+              ? `사용자 ${selectedUserId}의 게시글`
+              : '전체 게시글 목록'}
           </h3>
-          <button 
-            onClick={selectedUserId ? refreshUserPosts : refreshPosts} 
+          <button
+            onClick={selectedUserId ? refreshUserPosts : refreshPosts}
             disabled={currentLoading}
           >
             새로고침
           </button>
         </div>
         <div className="posts-list">
-          {currentPosts.slice(0, 5).map((post) => (
+          {currentPosts.slice(0, 5).map(post => (
             <div key={post.id} className="post-card">
               <h4>{post.title}</h4>
               <p>{post.body}</p>
@@ -235,7 +234,7 @@ const SWRExample: React.FC = () => {
       <div className="code-example">
         <h3>코드 예제</h3>
         <pre>
-{`// SWR 사용 예제
+          {`// SWR 사용 예제
 import useSWR from 'swr';
 
 // Fetcher 함수 정의
