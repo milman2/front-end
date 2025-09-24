@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 // 생명주기를 추적하는 컴포넌트
 function LifecycleTracker({ name, onLog }) {
@@ -46,10 +46,10 @@ function LifecycleLogger() {
   const [logs, setLogs] = useState([]);
   const [showTracker, setShowTracker] = useState(true);
 
-  const addLog = (message) => {
+  const addLog = useCallback((message) => {
     const timestamp = new Date().toLocaleTimeString();
     setLogs(prev => [...prev, { message, timestamp, id: Date.now() }]);
-  };
+  }, []);
 
   const clearLogs = () => {
     setLogs([]);
