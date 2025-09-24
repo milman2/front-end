@@ -71,9 +71,10 @@ function ListRendering() {
   // 정렬된 할 일 목록
   const sortedTodos = [...filteredTodos].sort((a, b) => {
     switch (sortBy) {
-      case 'priority':
+      case 'priority': {
         const priorityOrder = { high: 3, medium: 2, low: 1 };
         return priorityOrder[b.priority] - priorityOrder[a.priority];
+      }
       case 'alphabetical':
         return a.text.localeCompare(b.text);
       case 'completed':
@@ -240,19 +241,6 @@ function TodoItem({ todo, onToggle, onDelete, onChangePriority }) {
         return '#27ae60';
       default:
         return '#95a5a6';
-    }
-  };
-
-  const getPriorityLabel = priority => {
-    switch (priority) {
-      case 'high':
-        return '높음';
-      case 'medium':
-        return '보통';
-      case 'low':
-        return '낮음';
-      default:
-        return '없음';
     }
   };
 

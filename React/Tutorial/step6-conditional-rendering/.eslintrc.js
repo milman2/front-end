@@ -24,7 +24,7 @@ module.exports = {
     'prettier/prettier': 'error',
     
     // React 관련 규칙
-    'react/prop-types': 'warn',
+    'react/prop-types': 'off', // 학습용 프로젝트에서는 비활성화
     'react/react-in-jsx-scope': 'off', // React 17+ 자동 import
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
@@ -35,6 +35,7 @@ module.exports = {
     'no-debugger': 'error',
     'prefer-const': 'error',
     'no-var': 'error',
+    'no-undef': 'off', // Jest 전역 변수 허용
   },
   settings: {
     react: {
