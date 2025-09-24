@@ -10,6 +10,10 @@ import UserProfile from './components/UserProfile';
 import EditProfile from './components/EditProfile';
 import UserPosts from './components/UserPosts';
 import Contact from './components/Contact';
+import { initializeUsers } from './utils/initializeData';
+
+// 앱 시작 시 초기 데이터 초기화
+initializeUsers();
 
 function App() {
   return (

@@ -1,19 +1,13 @@
 import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import './UserProfile.css';
-
-// 샘플 사용자 데이터
-const SAMPLE_USERS = [
-  { id: 123, name: '김개발', email: 'kim@example.com', role: 'developer' },
-  { id: 456, name: '이디자인', email: 'lee@example.com', role: 'designer' },
-  { id: 789, name: '박기획', email: 'park@example.com', role: 'planner' },
-];
+import { getStoredUsers } from '../utils/initializeData';
 
 function UserProfile() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const user = SAMPLE_USERS.find(u => u.id === parseInt(id));
+  const user = getStoredUsers().find(u => u.id === parseInt(id));
 
   if (!user) {
     return (

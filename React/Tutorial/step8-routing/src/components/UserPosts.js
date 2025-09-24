@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import './UserPosts.css';
-
-// 샘플 사용자 데이터
-const SAMPLE_USERS = [
-  { id: 123, name: '김개발', email: 'kim@example.com', role: 'developer' },
-  { id: 456, name: '이디자인', email: 'lee@example.com', role: 'designer' },
-  { id: 789, name: '박기획', email: 'park@example.com', role: 'planner' },
-];
+import { getStoredUsers } from '../utils/initializeData';
 
 // 샘플 게시글 데이터
 const SAMPLE_POSTS = [
@@ -56,7 +50,7 @@ function UserPosts() {
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState('all');
 
-  const user = SAMPLE_USERS.find(u => u.id === parseInt(id));
+  const user = getStoredUsers().find(u => u.id === parseInt(id));
 
   useEffect(() => {
     // 실제로는 API 호출
@@ -69,7 +63,7 @@ function UserPosts() {
         );
         setPosts(userPosts);
       } catch (error) {
-        console.error('게시글을 불러오는데 실패했습니다:', error);
+        // 에러 처리 (실제로는 사용자에게 알림)
       } finally {
         setIsLoading(false);
       }

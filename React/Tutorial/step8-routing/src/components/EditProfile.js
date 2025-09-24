@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import './EditProfile.css';
-
-// 샘플 사용자 데이터
-const SAMPLE_USERS = [
-  { id: 123, name: '김개발', email: 'kim@example.com', role: 'developer' },
-  { id: 456, name: '이디자인', email: 'lee@example.com', role: 'designer' },
-  { id: 789, name: '박기획', email: 'park@example.com', role: 'planner' },
-];
+import { getStoredUsers, updateUser } from '../utils/initializeData';
 
 function EditProfile() {
   const { id } = useParams();
@@ -15,7 +9,7 @@ function EditProfile() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  const user = SAMPLE_USERS.find(u => u.id === parseInt(id));
+  const user = getStoredUsers().find(u => u.id === parseInt(id));
   const [formData, setFormData] = useState({
     name: user?.name || '',
     email: user?.email || '',
@@ -52,6 +46,14 @@ function EditProfile() {
     try {
       // 실제로는 API 호출
       await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // 유틸리티 함수를 사용하여 사용자 정보 업데이트
+      updateUser(parseInt(id), {
+        name: formData.name,
+        email: formData.email,
+        role: formData.role,
+      });
+
       setMessage('프로필이 성공적으로 업데이트되었습니다!');
 
       // 2초 후 프로필 페이지로 이동
@@ -63,15 +65,6 @@ function EditProfile() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const getRoleDisplayName = role => {
-    const roleMap = {
-      developer: '개발자',
-      designer: '디자이너',
-      planner: '기획자',
-    };
-    return roleMap[role] || role;
   };
 
   return (
