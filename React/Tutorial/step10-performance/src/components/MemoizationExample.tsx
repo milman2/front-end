@@ -21,7 +21,7 @@ interface Product {
 // 메모이제이션되지 않은 컴포넌트
 const UserCard: React.FC<{ user: User; onClick: (id: number) => void }> = ({ user, onClick }) => {
   console.log(`UserCard 렌더링: ${user.name}`);
-  
+
   return (
     <div className="user-card" onClick={() => onClick(user.id)}>
       <h4>{user.name}</h4>
@@ -35,7 +35,7 @@ const UserCard: React.FC<{ user: User; onClick: (id: number) => void }> = ({ use
 // React.memo로 메모이제이션된 컴포넌트
 const MemoizedUserCard = memo<UserCardProps>(({ user, onClick }) => {
   console.log(`MemoizedUserCard 렌더링: ${user.name}`);
-  
+
   return (
     <div className="user-card" onClick={() => onClick(user.id)}>
       <h4>{user.name}</h4>
@@ -76,7 +76,7 @@ const MemoizationExample: React.FC = () => {
   const filteredUsers = useMemo(() => {
     console.log('필터링된 사용자 목록 계산 중...');
     if (filter === 'all') return users;
-    return users.filter(user => user.department === filter);
+    return users.filter((user) => user.department === filter);
   }, [users, filter]);
 
   // useMemo를 사용한 통계 계산
@@ -84,8 +84,8 @@ const MemoizationExample: React.FC = () => {
     console.log('사용자 통계 계산 중...');
     const totalUsers = users.length;
     const avgAge = users.reduce((sum, user) => sum + user.age, 0) / totalUsers;
-    const departments = [...new Set(users.map(user => user.department))];
-    
+    const departments = Array.from(new Set(users.map((user) => user.department)));
+
     return {
       totalUsers,
       avgAge: Math.round(avgAge),
@@ -96,7 +96,7 @@ const MemoizationExample: React.FC = () => {
   // useMemo를 사용한 재고 있는 제품 목록
   const inStockProducts = useMemo(() => {
     console.log('재고 있는 제품 목록 계산 중...');
-    return products.filter(product => product.inStock);
+    return products.filter((product) => product.inStock);
   }, [products]);
 
   // useCallback을 사용한 이벤트 핸들러
@@ -116,17 +116,17 @@ const MemoizationExample: React.FC = () => {
       age: Math.floor(Math.random() * 30) + 20,
       department: ['개발팀', '디자인팀', '마케팅팀'][Math.floor(Math.random() * 3)],
     };
-    setUsers(prev => [...prev, newUser]);
+    setUsers((prev) => [...prev, newUser]);
   }, [users.length]);
 
   const handleIncrementCounter = useCallback(() => {
-    setCounter(prev => prev + 1);
+    setCounter((prev) => prev + 1);
   }, []);
 
   return (
     <div className="memoization-example">
       <h2>메모이제이션 최적화 예제</h2>
-      
+
       <div className="controls">
         <div className="control-group">
           <label>부서 필터:</label>
@@ -137,7 +137,7 @@ const MemoizationExample: React.FC = () => {
             <option value="마케팅팀">마케팅팀</option>
           </select>
         </div>
-        
+
         <div className="control-group">
           <button onClick={handleAddUser}>사용자 추가</button>
           <button onClick={handleIncrementCounter}>카운터 증가: {counter}</button>
@@ -155,7 +155,7 @@ const MemoizationExample: React.FC = () => {
         <div className="section">
           <h3>일반 컴포넌트 (리렌더링 발생)</h3>
           <div className="user-grid">
-            {filteredUsers.map(user => (
+            {filteredUsers.map((user) => (
               <UserCard key={user.id} user={user} onClick={handleUserClick} />
             ))}
           </div>
@@ -164,7 +164,7 @@ const MemoizationExample: React.FC = () => {
         <div className="section">
           <h3>메모이제이션된 컴포넌트 (React.memo)</h3>
           <div className="user-grid">
-            {filteredUsers.map(user => (
+            {filteredUsers.map((user) => (
               <MemoizedUserCard key={user.id} user={user} onClick={handleUserClick} />
             ))}
           </div>
@@ -174,7 +174,7 @@ const MemoizationExample: React.FC = () => {
       <div className="products-section">
         <h3>재고 있는 제품 (useMemo)</h3>
         <div className="product-list">
-          {inStockProducts.map(product => (
+          {inStockProducts.map((product) => (
             <div key={product.id} className="product-card">
               <h4>{product.name}</h4>
               <p>가격: {product.price.toLocaleString()}원</p>
@@ -193,10 +193,19 @@ const MemoizationExample: React.FC = () => {
       <div className="explanation">
         <h3>메모이제이션 최적화 설명</h3>
         <ul>
-          <li><strong>React.memo:</strong> 컴포넌트의 props가 변경되지 않으면 리렌더링을 방지</li>
-          <li><strong>useMemo:</strong> 의존성이 변경되지 않으면 계산 결과를 캐시</li>
-          <li><strong>useCallback:</strong> 의존성이 변경되지 않으면 함수를 캐시</li>
-          <li>카운터를 증가시켜보면 일반 컴포넌트는 리렌더링되지만 메모이제이션된 컴포넌트는 리렌더링되지 않음</li>
+          <li>
+            <strong>React.memo:</strong> 컴포넌트의 props가 변경되지 않으면 리렌더링을 방지
+          </li>
+          <li>
+            <strong>useMemo:</strong> 의존성이 변경되지 않으면 계산 결과를 캐시
+          </li>
+          <li>
+            <strong>useCallback:</strong> 의존성이 변경되지 않으면 함수를 캐시
+          </li>
+          <li>
+            카운터를 증가시켜보면 일반 컴포넌트는 리렌더링되지만 메모이제이션된 컴포넌트는
+            리렌더링되지 않음
+          </li>
         </ul>
       </div>
     </div>

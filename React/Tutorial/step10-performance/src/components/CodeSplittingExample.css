@@ -179,8 +179,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .error-fallback {
@@ -389,15 +393,15 @@
   .module-buttons {
     grid-template-columns: 1fr;
   }
-  
+
   .module-details {
     grid-template-columns: 1fr;
   }
-  
+
   .stats-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .dashboard-content {
     grid-template-columns: 1fr;
   }

@@ -67,8 +67,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .component-tab h3,
@@ -433,25 +437,25 @@
   .tab-navigation {
     flex-direction: column;
   }
-  
+
   .component-controls {
     flex-direction: column;
   }
-  
+
   .image-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .gallery-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
-  
+
   .data-item {
     flex-direction: column;
     gap: 5px;
     text-align: center;
   }
-  
+
   .pie-container {
     flex-direction: column;
     align-items: center;

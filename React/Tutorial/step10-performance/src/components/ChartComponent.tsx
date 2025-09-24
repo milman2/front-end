@@ -26,7 +26,7 @@ const ChartComponent: React.FC = () => {
     }, 1000);
   }, []);
 
-  const maxValue = Math.max(...data.map(d => d.value));
+  const maxValue = Math.max(...data.map((d) => d.value));
 
   if (loading) {
     return (
@@ -73,22 +73,22 @@ const ChartComponent: React.FC = () => {
               const percentage = (item.value / total) * 100;
               const startAngle = (cumulativePercentage / 100) * 360;
               const endAngle = ((cumulativePercentage + percentage) / 100) * 360;
-              
+
               const startAngleRad = (startAngle * Math.PI) / 180;
               const endAngleRad = (endAngle * Math.PI) / 180;
-              
+
               const x1 = 150 + 100 * Math.cos(startAngleRad);
               const y1 = 150 + 100 * Math.sin(startAngleRad);
               const x2 = 150 + 100 * Math.cos(endAngleRad);
               const y2 = 150 + 100 * Math.sin(endAngleRad);
-              
+
               const largeArcFlag = percentage > 50 ? 1 : 0;
-              
+
               const pathData = [
                 `M 150 150`,
                 `L ${x1} ${y1}`,
                 `A 100 100 0 ${largeArcFlag} 1 ${x2} ${y2}`,
-                'Z'
+                'Z',
               ].join(' ');
 
               cumulativePercentage += percentage;
@@ -105,13 +105,12 @@ const ChartComponent: React.FC = () => {
             })}
           </svg>
           <div className="pie-legend">
-            {data.map(item => (
+            {data.map((item) => (
               <div key={item.name} className="legend-item">
-                <div
-                  className="legend-color"
-                  style={{ backgroundColor: item.color }}
-                />
-                <span>{item.name}: {item.value}</span>
+                <div className="legend-color" style={{ backgroundColor: item.color }} />
+                <span>
+                  {item.name}: {item.value}
+                </span>
               </div>
             ))}
           </div>
@@ -124,20 +123,14 @@ const ChartComponent: React.FC = () => {
     <div className="chart-component">
       <h3>차트 컴포넌트</h3>
       <div className="chart-controls">
-        <button
-          className={chartType === 'bar' ? 'active' : ''}
-          onClick={() => setChartType('bar')}
-        >
+        <button className={chartType === 'bar' ? 'active' : ''} onClick={() => setChartType('bar')}>
           막대 차트
         </button>
-        <button
-          className={chartType === 'pie' ? 'active' : ''}
-          onClick={() => setChartType('pie')}
-        >
+        <button className={chartType === 'pie' ? 'active' : ''} onClick={() => setChartType('pie')}>
           원형 차트
         </button>
       </div>
-      
+
       {chartType === 'bar' ? renderBarChart() : renderPieChart()}
     </div>
   );

@@ -68,23 +68,31 @@ function App() {
         </button>
       </nav>
 
-      <main className="App-main">
-        {renderContent()}
-      </main>
+      <main className="App-main">{renderContent()}</main>
 
       <footer className="App-footer">
         <div className="performance-info">
           <h3>성능 최적화 기법들</h3>
           <ul>
-            <li>✅ <strong>메모이제이션:</strong> React.memo, useMemo, useCallback</li>
-            <li>✅ <strong>가상화:</strong> react-window를 사용한 대용량 리스트 최적화</li>
-            <li>✅ <strong>지연 로딩:</strong> 컴포넌트, 이미지, 데이터 지연 로딩</li>
-            <li>✅ <strong>코드 분할:</strong> React.lazy와 Suspense를 활용한 번들 분할</li>
-            <li>✅ <strong>성능 모니터링:</strong> Web Vitals와 성능 메트릭 측정</li>
+            <li>
+              ✅ <strong>메모이제이션:</strong> React.memo, useMemo, useCallback
+            </li>
+            <li>
+              ✅ <strong>가상화:</strong> react-window를 사용한 대용량 리스트 최적화
+            </li>
+            <li>
+              ✅ <strong>지연 로딩:</strong> 컴포넌트, 이미지, 데이터 지연 로딩
+            </li>
+            <li>
+              ✅ <strong>코드 분할:</strong> React.lazy와 Suspense를 활용한 번들 분할
+            </li>
+            <li>
+              ✅ <strong>성능 모니터링:</strong> Web Vitals와 성능 메트릭 측정
+            </li>
           </ul>
           <p>
-            <strong>Step 10:</strong> React 애플리케이션의 성능을 최적화하는 
-            포괄적인 기법들을 실습합니다
+            <strong>Step 10:</strong> React 애플리케이션의 성능을 최적화하는 포괄적인 기법들을
+            실습합니다
           </p>
         </div>
       </footer>

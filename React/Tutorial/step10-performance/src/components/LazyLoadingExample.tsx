@@ -17,7 +17,7 @@ const LoadingSpinner: React.FC = () => (
 
 // Intersection Observer를 사용한 지연 로딩 훅
 const useIntersectionObserver = (
-  ref: React.RefObject<HTMLElement>,
+  ref: React.RefObject<HTMLElement | null>,
   options: IntersectionObserverInit = {}
 ) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
@@ -85,7 +85,7 @@ const LazyDataLoader: React.FC<{
   endpoint: string;
   render: (data: any) => React.ReactNode;
 }> = ({ endpoint, render }) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -99,8 +99,8 @@ const LazyDataLoader: React.FC<{
 
     try {
       // 실제 API 호출 시뮬레이션
-      await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 2000));
+
       // 가짜 데이터 생성
       const mockData = Array.from({ length: 20 }, (_, index) => ({
         id: index + 1,
@@ -205,13 +205,8 @@ const LazyLoadingExample: React.FC = () => {
       <h3>이미지 지연 로딩</h3>
       <p>스크롤하여 이미지들이 지연 로딩되는 것을 확인하세요.</p>
       <div className="image-grid">
-        {images.map(image => (
-          <LazyImage
-            key={image.id}
-            src={image.src}
-            alt={image.alt}
-            className="grid-image"
-          />
+        {images.map((image) => (
+          <LazyImage key={image.id} src={image.src} alt={image.alt} className="grid-image" />
         ))}
       </div>
     </div>
@@ -221,7 +216,7 @@ const LazyLoadingExample: React.FC = () => {
     <div className="data-tab">
       <h3>데이터 지연 로딩</h3>
       <p>스크롤하여 데이터가 지연 로딩되는 것을 확인하세요.</p>
-      
+
       <LazyDataLoader
         endpoint="/api/data1"
         render={(data) => (
@@ -281,7 +276,7 @@ const LazyLoadingExample: React.FC = () => {
   return (
     <div className="lazy-loading-example">
       <h2>지연 로딩(Lazy Loading) 최적화 예제</h2>
-      
+
       <div className="tab-navigation">
         <button
           className={activeTab === 'components' ? 'active' : ''}
@@ -312,10 +307,21 @@ const LazyLoadingExample: React.FC = () => {
       <div className="explanation">
         <h3>지연 로딩 최적화 설명</h3>
         <ul>
-          <li><strong>컴포넌트 지연 로딩:</strong> React.lazy()와 Suspense를 사용하여 필요할 때만 컴포넌트 로드</li>
-          <li><strong>이미지 지연 로딩:</strong> Intersection Observer API를 사용하여 뷰포트에 들어올 때만 이미지 로드</li>
-          <li><strong>데이터 지연 로딩:</strong> 사용자가 스크롤할 때만 데이터를 가져와서 초기 로딩 시간 단축</li>
-          <li><strong>성능 향상:</strong> 초기 번들 크기 감소 및 네트워크 사용량 최적화</li>
+          <li>
+            <strong>컴포넌트 지연 로딩:</strong> React.lazy()와 Suspense를 사용하여 필요할 때만
+            컴포넌트 로드
+          </li>
+          <li>
+            <strong>이미지 지연 로딩:</strong> Intersection Observer API를 사용하여 뷰포트에 들어올
+            때만 이미지 로드
+          </li>
+          <li>
+            <strong>데이터 지연 로딩:</strong> 사용자가 스크롤할 때만 데이터를 가져와서 초기 로딩
+            시간 단축
+          </li>
+          <li>
+            <strong>성능 향상:</strong> 초기 번들 크기 감소 및 네트워크 사용량 최적화
+          </li>
         </ul>
       </div>
     </div>

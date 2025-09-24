@@ -26,48 +26,63 @@ const PerformanceMonitoringExample: React.FC = () => {
   useEffect(() => {
     const collectWebVitals = () => {
       getCLS((metric) => {
-        setMetrics(prev => [...prev.filter(m => m.name !== 'CLS'), {
-          name: 'CLS',
-          value: metric.value,
-          rating: metric.rating,
-          description: 'Cumulative Layout Shift - 레이아웃 이동 측정'
-        }]);
+        setMetrics((prev) => [
+          ...prev.filter((m) => m.name !== 'CLS'),
+          {
+            name: 'CLS',
+            value: metric.value,
+            rating: 'good',
+            description: 'Cumulative Layout Shift - 레이아웃 이동 측정',
+          },
+        ]);
       });
 
       getFID((metric) => {
-        setMetrics(prev => [...prev.filter(m => m.name !== 'FID'), {
-          name: 'FID',
-          value: metric.value,
-          rating: metric.rating,
-          description: 'First Input Delay - 첫 입력 지연 시간'
-        }]);
+        setMetrics((prev) => [
+          ...prev.filter((m) => m.name !== 'FID'),
+          {
+            name: 'FID',
+            value: metric.value,
+            rating: 'good',
+            description: 'First Input Delay - 첫 입력 지연 시간',
+          },
+        ]);
       });
 
       getFCP((metric) => {
-        setMetrics(prev => [...prev.filter(m => m.name !== 'FCP'), {
-          name: 'FCP',
-          value: metric.value,
-          rating: metric.rating,
-          description: 'First Contentful Paint - 첫 콘텐츠 렌더링 시간'
-        }]);
+        setMetrics((prev) => [
+          ...prev.filter((m) => m.name !== 'FCP'),
+          {
+            name: 'FCP',
+            value: metric.value,
+            rating: 'good',
+            description: 'First Contentful Paint - 첫 콘텐츠 렌더링 시간',
+          },
+        ]);
       });
 
       getLCP((metric) => {
-        setMetrics(prev => [...prev.filter(m => m.name !== 'LCP'), {
-          name: 'LCP',
-          value: metric.value,
-          rating: metric.rating,
-          description: 'Largest Contentful Paint - 가장 큰 콘텐츠 렌더링 시간'
-        }]);
+        setMetrics((prev) => [
+          ...prev.filter((m) => m.name !== 'LCP'),
+          {
+            name: 'LCP',
+            value: metric.value,
+            rating: 'good',
+            description: 'Largest Contentful Paint - 가장 큰 콘텐츠 렌더링 시간',
+          },
+        ]);
       });
 
       getTTFB((metric) => {
-        setMetrics(prev => [...prev.filter(m => m.name !== 'TTFB'), {
-          name: 'TTFB',
-          value: metric.value,
-          rating: metric.rating,
-          description: 'Time to First Byte - 첫 바이트 수신 시간'
-        }]);
+        setMetrics((prev) => [
+          ...prev.filter((m) => m.name !== 'TTFB'),
+          {
+            name: 'TTFB',
+            value: metric.value,
+            rating: 'good',
+            description: 'Time to First Byte - 첫 바이트 수신 시간',
+          },
+        ]);
       });
     };
 
@@ -105,18 +120,21 @@ const PerformanceMonitoringExample: React.FC = () => {
     renderStartTime.current = performance.now();
     renderFn();
     const renderTime = performance.now() - renderStartTime.current;
-    
-    setRenderTimes(prev => [...prev, {
-      component: componentName,
-      renderTime: Math.round(renderTime * 100) / 100,
-      timestamp: Date.now(),
-    }]);
+
+    setRenderTimes((prev) => [
+      ...prev,
+      {
+        component: componentName,
+        renderTime: Math.round(renderTime * 100) / 100,
+        timestamp: Date.now(),
+      },
+    ]);
   }, []);
 
   // 성능 테스트 컴포넌트들
   const HeavyComponent = () => {
     const [data, setData] = useState<number[]>([]);
-    
+
     useEffect(() => {
       measureRenderTime('HeavyComponent', () => {
         const heavyData = Array.from({ length: 10000 }, () => Math.random());
@@ -166,29 +184,37 @@ const PerformanceMonitoringExample: React.FC = () => {
 
   const getRatingColor = (rating: string) => {
     switch (rating) {
-      case 'good': return '#28a745';
-      case 'needs-improvement': return '#ffc107';
-      case 'poor': return '#dc3545';
-      default: return '#6c757d';
+      case 'good':
+        return '#28a745';
+      case 'needs-improvement':
+        return '#ffc107';
+      case 'poor':
+        return '#dc3545';
+      default:
+        return '#6c757d';
     }
   };
 
   const getRatingText = (rating: string) => {
     switch (rating) {
-      case 'good': return '좋음';
-      case 'needs-improvement': return '개선 필요';
-      case 'poor': return '나쁨';
-      default: return '알 수 없음';
+      case 'good':
+        return '좋음';
+      case 'needs-improvement':
+        return '개선 필요';
+      case 'poor':
+        return '나쁨';
+      default:
+        return '알 수 없음';
     }
   };
 
   return (
     <div className="performance-monitoring-example">
       <h2>성능 모니터링 도구 예제</h2>
-      
+
       <div className="monitoring-controls">
         <div className="control-group">
-          <button 
+          <button
             className={`monitor-btn ${isMonitoring ? 'stop' : 'start'}`}
             onClick={isMonitoring ? handleStopMonitoring : handleStartMonitoring}
           >
@@ -198,7 +224,7 @@ const PerformanceMonitoringExample: React.FC = () => {
             데이터 초기화
           </button>
         </div>
-        
+
         <div className="monitoring-status">
           <span className={`status-indicator ${isMonitoring ? 'active' : 'inactive'}`}>
             {isMonitoring ? '● 모니터링 중' : '○ 모니터링 중지'}
@@ -210,11 +236,11 @@ const PerformanceMonitoringExample: React.FC = () => {
         <div className="web-vitals-section">
           <h3>Web Vitals 메트릭</h3>
           <div className="metrics-grid">
-            {metrics.map(metric => (
+            {metrics.map((metric) => (
               <div key={metric.name} className="metric-card">
                 <div className="metric-header">
                   <h4>{metric.name}</h4>
-                  <span 
+                  <span
                     className="rating-badge"
                     style={{ backgroundColor: getRatingColor(metric.rating) }}
                   >
@@ -225,9 +251,7 @@ const PerformanceMonitoringExample: React.FC = () => {
                   {metric.value.toFixed(2)}
                   {metric.name === 'CLS' ? '' : 'ms'}
                 </div>
-                <div className="metric-description">
-                  {metric.description}
-                </div>
+                <div className="metric-description">{metric.description}</div>
               </div>
             ))}
           </div>
@@ -250,10 +274,10 @@ const PerformanceMonitoringExample: React.FC = () => {
                 <span className="memory-value">{memoryUsage.limit} MB</span>
               </div>
               <div className="memory-progress">
-                <div 
+                <div
                   className="memory-bar"
-                  style={{ 
-                    width: `${(memoryUsage.used / memoryUsage.limit) * 100}%` 
+                  style={{
+                    width: `${(memoryUsage.used / memoryUsage.limit) * 100}%`,
                   }}
                 ></div>
               </div>
@@ -266,15 +290,18 @@ const PerformanceMonitoringExample: React.FC = () => {
         <div className="render-times-section">
           <h3>컴포넌트 렌더링 시간</h3>
           <div className="render-times-list">
-            {renderTimes.slice(-10).reverse().map((render, index) => (
-              <div key={index} className="render-time-item">
-                <span className="component-name">{render.component}</span>
-                <span className="render-time">{render.renderTime}ms</span>
-                <span className="timestamp">
-                  {new Date(render.timestamp).toLocaleTimeString()}
-                </span>
-              </div>
-            ))}
+            {renderTimes
+              .slice(-10)
+              .reverse()
+              .map((render, index) => (
+                <div key={index} className="render-time-item">
+                  <span className="component-name">{render.component}</span>
+                  <span className="render-time">{render.renderTime}ms</span>
+                  <span className="timestamp">
+                    {new Date(render.timestamp).toLocaleTimeString()}
+                  </span>
+                </div>
+              ))}
           </div>
         </div>
 

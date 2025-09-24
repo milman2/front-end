@@ -112,18 +112,18 @@ const CodeSplittingExample: React.FC = () => {
 
   const handleModuleLoad = (moduleName: string) => {
     const startTime = performance.now();
-    
+
     setActiveModule(moduleName);
-    
+
     if (!loadedModules.has(moduleName)) {
-      setLoadedModules(prev => new Set([...prev, moduleName]));
+      setLoadedModules((prev) => new Set(Array.from(prev).concat(moduleName)));
     }
 
     // 로딩 시간 측정 (실제로는 모듈이 로드된 후 측정해야 함)
     setTimeout(() => {
       const endTime = performance.now();
       const loadingTime = Math.round(endTime - startTime);
-      setLoadingTimes(prev => ({ ...prev, [moduleName]: loadingTime }));
+      setLoadingTimes((prev) => ({ ...prev, [moduleName]: loadingTime }));
     }, 100);
   };
 
@@ -143,7 +143,7 @@ const CodeSplittingExample: React.FC = () => {
   return (
     <div className="code-splitting-example">
       <h2>코드 분할(Code Splitting) 최적화 예제</h2>
-      
+
       <div className="module-navigation">
         <h3>모듈 선택</h3>
         <div className="module-buttons">
@@ -173,10 +173,12 @@ const CodeSplittingExample: React.FC = () => {
               <strong>예상 크기:</strong> {modules[activeModule]?.estimatedSize}
             </div>
             <div className="detail-item">
-              <strong>로딩 시간:</strong> {loadingTimes[activeModule] ? `${loadingTimes[activeModule]}ms` : '측정 중...'}
+              <strong>로딩 시간:</strong>{' '}
+              {loadingTimes[activeModule] ? `${loadingTimes[activeModule]}ms` : '측정 중...'}
             </div>
             <div className="detail-item">
-              <strong>로딩 상태:</strong> {loadedModules.has(activeModule) ? '로드됨' : '로딩 중...'}
+              <strong>로딩 상태:</strong>{' '}
+              {loadedModules.has(activeModule) ? '로드됨' : '로딩 중...'}
             </div>
           </div>
           <div className="features">
@@ -192,9 +194,7 @@ const CodeSplittingExample: React.FC = () => {
 
       <div className="module-content">
         <h3>모듈 콘텐츠</h3>
-        <div className="content-container">
-          {renderModule()}
-        </div>
+        <div className="content-container">{renderModule()}</div>
       </div>
 
       <div className="performance-stats">
@@ -212,9 +212,13 @@ const CodeSplittingExample: React.FC = () => {
           </div>
           <div className="stat-card">
             <div className="stat-value">
-              {Object.keys(loadingTimes).length > 0 
-                ? Math.round(Object.values(loadingTimes).reduce((sum, time) => sum + time, 0) / Object.keys(loadingTimes).length)
-                : 0}ms
+              {Object.keys(loadingTimes).length > 0
+                ? Math.round(
+                    Object.values(loadingTimes).reduce((sum, time) => sum + time, 0) /
+                      Object.keys(loadingTimes).length
+                  )
+                : 0}
+              ms
             </div>
             <div className="stat-label">평균 로딩 시간</div>
           </div>
@@ -224,11 +228,21 @@ const CodeSplittingExample: React.FC = () => {
       <div className="explanation">
         <h3>코드 분할 최적화 설명</h3>
         <ul>
-          <li><strong>동적 Import:</strong> React.lazy()를 사용하여 컴포넌트를 필요할 때만 로드</li>
-          <li><strong>Suspense:</strong> 로딩 상태를 처리하고 사용자에게 피드백 제공</li>
-          <li><strong>Error Boundary:</strong> 모듈 로딩 실패 시 에러 처리</li>
-          <li><strong>번들 분할:</strong> 초기 번들 크기를 줄여서 첫 로딩 시간 단축</li>
-          <li><strong>캐싱:</strong> 한 번 로드된 모듈은 브라우저에 캐시되어 재사용</li>
+          <li>
+            <strong>동적 Import:</strong> React.lazy()를 사용하여 컴포넌트를 필요할 때만 로드
+          </li>
+          <li>
+            <strong>Suspense:</strong> 로딩 상태를 처리하고 사용자에게 피드백 제공
+          </li>
+          <li>
+            <strong>Error Boundary:</strong> 모듈 로딩 실패 시 에러 처리
+          </li>
+          <li>
+            <strong>번들 분할:</strong> 초기 번들 크기를 줄여서 첫 로딩 시간 단축
+          </li>
+          <li>
+            <strong>캐싱:</strong> 한 번 로드된 모듈은 브라우저에 캐시되어 재사용
+          </li>
         </ul>
       </div>
     </div>

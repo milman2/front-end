@@ -64,9 +64,8 @@ const Reports: React.FC = () => {
     }, 1000);
   }, []);
 
-  const filteredReports = selectedType === 'all' 
-    ? reports 
-    : reports.filter(report => report.type === selectedType);
+  const filteredReports =
+    selectedType === 'all' ? reports : reports.filter((report) => report.type === selectedType);
 
   const handleGenerateReport = () => {
     const newReport: Report = {
@@ -77,20 +76,20 @@ const Reports: React.FC = () => {
       createdAt: new Date().toISOString().split('T')[0],
       size: '-',
     };
-    setReports(prev => [newReport, ...prev]);
-    
+    setReports((prev) => [newReport, ...prev]);
+
     // 처리 완료 시뮬레이션
     setTimeout(() => {
-      setReports(prev => prev.map(report => 
-        report.id === newReport.id 
-          ? { ...report, status: 'completed', size: '1.5 MB' }
-          : report
-      ));
+      setReports((prev) =>
+        prev.map((report) =>
+          report.id === newReport.id ? { ...report, status: 'completed', size: '1.5 MB' } : report
+        )
+      );
     }, 3000);
   };
 
   const handleDownload = (reportId: number) => {
-    const report = reports.find(r => r.id === reportId);
+    const report = reports.find((r) => r.id === reportId);
     if (report && report.status === 'completed') {
       alert(`${report.name} 다운로드를 시작합니다.`);
     }
@@ -98,7 +97,7 @@ const Reports: React.FC = () => {
 
   const handleDelete = (reportId: number) => {
     if (window.confirm('이 리포트를 삭제하시겠습니까?')) {
-      setReports(prev => prev.filter(report => report.id !== reportId));
+      setReports((prev) => prev.filter((report) => report.id !== reportId));
     }
   };
 
@@ -114,7 +113,7 @@ const Reports: React.FC = () => {
   return (
     <div className="reports">
       <h3>리포트</h3>
-      
+
       <div className="reports-header">
         <div className="report-filters">
           <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
@@ -126,7 +125,7 @@ const Reports: React.FC = () => {
             <option value="survey">설문조사</option>
           </select>
         </div>
-        
+
         <button className="generate-btn" onClick={handleGenerateReport}>
           새 리포트 생성
         </button>
@@ -138,15 +137,19 @@ const Reports: React.FC = () => {
           <span className="stat-label">총 리포트</span>
         </div>
         <div className="stat">
-          <span className="stat-value">{reports.filter(r => r.status === 'completed').length}</span>
+          <span className="stat-value">
+            {reports.filter((r) => r.status === 'completed').length}
+          </span>
           <span className="stat-label">완료됨</span>
         </div>
         <div className="stat">
-          <span className="stat-value">{reports.filter(r => r.status === 'processing').length}</span>
+          <span className="stat-value">
+            {reports.filter((r) => r.status === 'processing').length}
+          </span>
           <span className="stat-label">처리 중</span>
         </div>
         <div className="stat">
-          <span className="stat-value">{reports.filter(r => r.status === 'failed').length}</span>
+          <span className="stat-value">{reports.filter((r) => r.status === 'failed').length}</span>
           <span className="stat-label">실패</span>
         </div>
       </div>
@@ -164,7 +167,7 @@ const Reports: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredReports.map(report => (
+            {filteredReports.map((report) => (
               <tr key={report.id}>
                 <td>{report.name}</td>
                 <td>
@@ -174,8 +177,11 @@ const Reports: React.FC = () => {
                 </td>
                 <td>
                   <span className={`status-badge status-${report.status}`}>
-                    {report.status === 'completed' ? '완료' : 
-                     report.status === 'processing' ? '처리 중' : '실패'}
+                    {report.status === 'completed'
+                      ? '완료'
+                      : report.status === 'processing'
+                        ? '처리 중'
+                        : '실패'}
                   </span>
                 </td>
                 <td>{report.createdAt}</td>
@@ -183,17 +189,11 @@ const Reports: React.FC = () => {
                 <td>
                   <div className="action-buttons">
                     {report.status === 'completed' && (
-                      <button 
-                        className="download-btn"
-                        onClick={() => handleDownload(report.id)}
-                      >
+                      <button className="download-btn" onClick={() => handleDownload(report.id)}>
                         다운로드
                       </button>
                     )}
-                    <button 
-                      className="delete-btn"
-                      onClick={() => handleDelete(report.id)}
-                    >
+                    <button className="delete-btn" onClick={() => handleDelete(report.id)}>
                       삭제
                     </button>
                   </div>

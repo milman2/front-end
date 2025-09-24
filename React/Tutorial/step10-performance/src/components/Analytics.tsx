@@ -55,7 +55,7 @@ const Analytics: React.FC = () => {
   return (
     <div className="analytics">
       <h3>분석</h3>
-      
+
       <div className="time-range-selector">
         <select value={timeRange} onChange={(e) => setTimeRange(e.target.value)}>
           <option value="1d">지난 1일</option>
@@ -73,7 +73,7 @@ const Analytics: React.FC = () => {
             <div className="metric-label">페이지 뷰</div>
           </div>
         </div>
-        
+
         <div className="metric-card">
           <div className="metric-icon">👤</div>
           <div className="metric-content">
@@ -81,7 +81,7 @@ const Analytics: React.FC = () => {
             <div className="metric-label">고유 방문자</div>
           </div>
         </div>
-        
+
         <div className="metric-card">
           <div className="metric-icon">📊</div>
           <div className="metric-content">
@@ -89,7 +89,7 @@ const Analytics: React.FC = () => {
             <div className="metric-label">이탈률</div>
           </div>
         </div>
-        
+
         <div className="metric-card">
           <div className="metric-icon">⏱️</div>
           <div className="metric-content">
@@ -107,10 +107,10 @@ const Analytics: React.FC = () => {
               <div key={page.page} className="bar-item">
                 <div className="bar-label">{page.page}</div>
                 <div className="bar-container">
-                  <div 
-                    className="bar" 
-                    style={{ 
-                      width: `${(page.views / data.topPages[0].views) * 100}%` 
+                  <div
+                    className="bar"
+                    style={{
+                      width: `${(page.views / data.topPages[0].views) * 100}%`,
                     }}
                   ></div>
                   <span className="bar-value">{page.views.toLocaleString()}</span>
@@ -128,10 +128,7 @@ const Analytics: React.FC = () => {
                 const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'];
                 return (
                   <div key={source.source} className="pie-item">
-                    <div 
-                      className="pie-color" 
-                      style={{ backgroundColor: colors[index] }}
-                    ></div>
+                    <div className="pie-color" style={{ backgroundColor: colors[index] }}></div>
                     <span className="pie-label">{source.source}</span>
                     <span className="pie-percentage">{source.percentage}%</span>
                   </div>

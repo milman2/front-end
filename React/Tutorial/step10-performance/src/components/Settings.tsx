@@ -11,7 +11,7 @@ const Settings: React.FC = () => {
   });
 
   const handleSettingChange = (key: string, value: any) => {
-    setSettings(prev => ({ ...prev, [key]: value }));
+    setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleSave = () => {
@@ -35,14 +35,14 @@ const Settings: React.FC = () => {
   return (
     <div className="settings">
       <h3>설정</h3>
-      
+
       <div className="settings-sections">
         <div className="settings-section">
           <h4>일반 설정</h4>
           <div className="setting-item">
             <label>테마</label>
-            <select 
-              value={settings.theme} 
+            <select
+              value={settings.theme}
               onChange={(e) => handleSettingChange('theme', e.target.value)}
             >
               <option value="light">라이트</option>
@@ -50,11 +50,11 @@ const Settings: React.FC = () => {
               <option value="auto">자동</option>
             </select>
           </div>
-          
+
           <div className="setting-item">
             <label>언어</label>
-            <select 
-              value={settings.language} 
+            <select
+              value={settings.language}
               onChange={(e) => handleSettingChange('language', e.target.value)}
             >
               <option value="ko">한국어</option>
@@ -76,7 +76,7 @@ const Settings: React.FC = () => {
               푸시 알림 활성화
             </label>
           </div>
-          
+
           <div className="setting-item">
             <label>
               <input
@@ -101,11 +101,11 @@ const Settings: React.FC = () => {
               자동 저장 활성화
             </label>
           </div>
-          
+
           <div className="setting-item">
             <label>데이터 보존 기간</label>
-            <select 
-              value={settings.dataRetention} 
+            <select
+              value={settings.dataRetention}
               onChange={(e) => handleSettingChange('dataRetention', e.target.value)}
             >
               <option value="1month">1개월</option>

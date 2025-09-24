@@ -24,26 +24,31 @@ const UserManagement: React.FC = () => {
         email: `user${index + 1}@example.com`,
         role: ['admin', 'user', 'moderator'][index % 3],
         status: Math.random() > 0.2 ? 'active' : 'inactive',
-        lastLogin: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+        lastLogin: new Date(
+          Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000
+        ).toLocaleDateString(),
       }));
       setUsers(mockUsers);
       setLoading(false);
     }, 800);
   }, []);
 
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.email.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch =
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = filterRole === 'all' || user.role === filterRole;
     return matchesSearch && matchesRole;
   });
 
   const handleStatusToggle = (userId: number) => {
-    setUsers(prev => prev.map(user => 
-      user.id === userId 
-        ? { ...user, status: user.status === 'active' ? 'inactive' : 'active' }
-        : user
-    ));
+    setUsers((prev) =>
+      prev.map((user) =>
+        user.id === userId
+          ? { ...user, status: user.status === 'active' ? 'inactive' : 'active' }
+          : user
+      )
+    );
   };
 
   if (loading) {
@@ -58,7 +63,7 @@ const UserManagement: React.FC = () => {
   return (
     <div className="user-management">
       <h3>사용자 관리</h3>
-      
+
       <div className="user-controls">
         <div className="search-box">
           <input
@@ -68,7 +73,7 @@ const UserManagement: React.FC = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        
+
         <div className="filter-box">
           <select value={filterRole} onChange={(e) => setFilterRole(e.target.value)}>
             <option value="all">모든 역할</option>
@@ -85,11 +90,11 @@ const UserManagement: React.FC = () => {
           <span className="stat-label">총 사용자</span>
         </div>
         <div className="stat">
-          <span className="stat-value">{users.filter(u => u.status === 'active').length}</span>
+          <span className="stat-value">{users.filter((u) => u.status === 'active').length}</span>
           <span className="stat-label">활성 사용자</span>
         </div>
         <div className="stat">
-          <span className="stat-value">{users.filter(u => u.role === 'admin').length}</span>
+          <span className="stat-value">{users.filter((u) => u.role === 'admin').length}</span>
           <span className="stat-label">관리자</span>
         </div>
       </div>
@@ -108,15 +113,13 @@ const UserManagement: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.map(user => (
+            {filteredUsers.map((user) => (
               <tr key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>
-                  <span className={`role-badge role-${user.role}`}>
-                    {user.role}
-                  </span>
+                  <span className={`role-badge role-${user.role}`}>{user.role}</span>
                 </td>
                 <td>
                   <span className={`status-badge status-${user.status}`}>

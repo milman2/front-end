@@ -213,12 +213,12 @@
   .comparison {
     grid-template-columns: 1fr;
   }
-  
+
   .controls {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .control-group {
     justify-content: space-between;
   }

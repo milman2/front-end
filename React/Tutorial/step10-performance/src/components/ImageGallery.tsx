@@ -17,16 +17,12 @@ const ImageGallery: React.FC = () => {
       <h3>이미지 갤러리</h3>
       <div className="gallery-grid">
         {images.map((src, index) => (
-          <div
-            key={index}
-            className="gallery-item"
-            onClick={() => setSelectedImage(src)}
-          >
+          <div key={index} className="gallery-item" onClick={() => setSelectedImage(src)}>
             <img src={src} alt={`Gallery image ${index + 1}`} />
           </div>
         ))}
       </div>
-      
+
       {selectedImage && (
         <div className="modal" onClick={() => setSelectedImage(null)}>
           <div className="modal-content">

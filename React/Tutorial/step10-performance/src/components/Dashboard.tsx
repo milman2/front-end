@@ -53,7 +53,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="dashboard-content">
         <div className="chart-placeholder">
           <h4>사용자 증가 추이</h4>
@@ -66,7 +66,7 @@ const Dashboard: React.FC = () => {
             <div className="chart-bar" style={{ height: '85%' }}></div>
           </div>
         </div>
-        
+
         <div className="recent-activities">
           <h4>최근 활동</h4>
           <ul>

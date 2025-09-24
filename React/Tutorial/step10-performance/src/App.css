@@ -120,29 +120,29 @@
   .App-header h1 {
     font-size: 2rem;
   }
-  
+
   .App-header p {
     font-size: 1rem;
   }
-  
+
   .tab-navigation {
     flex-direction: column;
   }
-  
+
   .tab-navigation button {
     min-width: auto;
     border-bottom: 1px solid #e0e0e0;
     border-right: none;
   }
-  
+
   .tab-navigation button.active {
     border-bottom-color: #667eea;
   }
-  
+
   .App-main {
     padding: 15px;
   }
-  
+
   .performance-info ul {
     grid-template-columns: 1fr;
   }

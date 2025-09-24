@@ -24,7 +24,11 @@ const DataTable: React.FC = () => {
         email: `user${index + 1}@company.com`,
         department: ['개발팀', '디자인팀', '마케팅팀', '영업팀'][index % 4],
         salary: Math.floor(Math.random() * 5000000) + 3000000,
-        joinDate: new Date(2020 + Math.floor(Math.random() * 4), Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toLocaleDateString(),
+        joinDate: new Date(
+          2020 + Math.floor(Math.random() * 4),
+          Math.floor(Math.random() * 12),
+          Math.floor(Math.random() * 28) + 1
+        ).toLocaleDateString(),
       }));
       setData(mockData);
       setLoading(false);
@@ -43,17 +47,15 @@ const DataTable: React.FC = () => {
   const sortedData = [...data].sort((a, b) => {
     const aVal = a[sortField];
     const bVal = b[sortField];
-    
+
     if (typeof aVal === 'string' && typeof bVal === 'string') {
-      return sortDirection === 'asc' 
-        ? aVal.localeCompare(bVal)
-        : bVal.localeCompare(aVal);
+      return sortDirection === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
     }
-    
+
     if (typeof aVal === 'number' && typeof bVal === 'number') {
       return sortDirection === 'asc' ? aVal - bVal : bVal - aVal;
     }
-    
+
     return 0;
   });
 
@@ -94,7 +96,7 @@ const DataTable: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {sortedData.map(row => (
+            {sortedData.map((row) => (
               <tr key={row.id}>
                 <td>{row.id}</td>
                 <td>{row.name}</td>

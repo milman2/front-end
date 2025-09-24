@@ -334,23 +334,23 @@
     gap: 15px;
     align-items: stretch;
   }
-  
+
   .control-group {
     justify-content: center;
   }
-  
+
   .metrics-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .test-components {
     grid-template-columns: 1fr;
   }
-  
+
   .tips-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .render-time-item {
     flex-direction: column;
     gap: 5px;
