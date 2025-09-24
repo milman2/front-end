@@ -28,6 +28,7 @@ React의 기본 개념들을 이해하고 JSX 문법을 익힙니다.
 ```bash
 # 의존성 설치
 npm install
+npm audit
 
 # 개발 서버 실행
 npm start
