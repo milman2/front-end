@@ -222,7 +222,8 @@ const CodeSplittingExample: React.FC = () => {
           </div>
           <div className="stat-card">
             <div className="stat-value">
-              {loadingTimes && Object.values(loadingTimes).reduce((sum, time) => sum + time, 0)}ms
+              {loadingTimes ? Object.values(loadingTimes).reduce((sum, time) => sum + time, 0) : 0}
+              ms
             </div>
             <div className="stat-label">총 로딩 시간</div>
           </div>
