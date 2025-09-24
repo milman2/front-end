@@ -1,0 +1,168 @@
+.fetch-example {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.fetch-example h2 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.fetch-example p {
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+.controls button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.controls button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.controls button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #3498db;
+  font-weight: bold;
+}
+
+.error {
+  background-color: #e74c3c;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.error h3 {
+  margin-top: 0;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.users-section h3,
+.posts-section h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.user-card {
+  background-color: #ecf0f1;
+  padding: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+}
+
+.user-card:hover {
+  background-color: #d5dbdb;
+  transform: translateY(-2px);
+}
+
+.user-card.selected {
+  background-color: #3498db;
+  color: white;
+  border-color: #2980b9;
+}
+
+.user-card h4 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+}
+
+.user-card p {
+  margin: 4px 0;
+  font-size: 12px;
+  color: inherit;
+}
+
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.post-card {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.post-card h4 {
+  margin: 0 0 10px 0;
+  color: #2c3e50;
+  font-size: 16px;
+}
+
+.post-card p {
+  margin: 0;
+  color: #7f8c8d;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.code-example {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.code-example h3 {
+  margin-top: 0;
+  color: #3498db;
+}
+
+.code-example pre {
+  background-color: #34495e;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .users-grid {
+    grid-template-columns: 1fr;
+  }
+}
