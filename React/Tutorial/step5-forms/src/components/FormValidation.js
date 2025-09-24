@@ -529,23 +529,50 @@ function CustomValidationHook() {
     }, {});
     setTouched(allTouched);
 
-    // 모든 필드 검증
+    // 모든 필드 검증하고 에러 수집
+    const newErrors = {};
     Object.keys(formData).forEach(key => {
-      validateField(key, formData[key]);
+      const validator = validators[key];
+      if (validator) {
+        const error = validator(formData[key]);
+        if (error) {
+          newErrors[key] = error;
+        }
+      }
     });
 
-    if (Object.keys(errors).length === 0) {
+    // 에러 상태 업데이트
+    setErrors(newErrors);
+
+    // 검증 결과에 따른 처리
+    if (Object.keys(newErrors).length === 0) {
       alert('커스텀 검증 폼이 성공적으로 제출되었습니다!');
     } else {
       alert('입력 오류를 수정해주세요.');
     }
   };
 
-  const isFormValid =
-    Object.keys(errors).length === 0 &&
-    Object.values(formData).every(value =>
+  // 실시간 폼 유효성 검사
+  const isFormValid = (() => {
+    // 모든 필드가 채워져 있는지 확인
+    const allFieldsFilled = Object.values(formData).every(value =>
       typeof value === 'boolean' ? value : value.toString().trim() !== ''
     );
+
+    if (!allFieldsFilled) return false;
+
+    // 모든 필드가 유효한지 확인
+    const hasErrors = Object.keys(formData).some(key => {
+      const validator = validators[key];
+      if (validator) {
+        const error = validator(formData[key]);
+        return error !== null;
+      }
+      return false;
+    });
+
+    return !hasErrors;
+  })();
 
   return (
     <div className='demo-box'>
