@@ -194,14 +194,16 @@ function formReducer(state, action) {
     case 'setField':
       return {
         ...state,
-        [action.field]: action.value
+        [action.field]: action.value,
+        errors: {} // 필드 변경 시 에러 초기화
       };
     case 'reset':
       return {
         name: '',
         email: '',
         age: '',
-        message: ''
+        message: '',
+        errors: {}
       };
     case 'setErrors':
       return {
