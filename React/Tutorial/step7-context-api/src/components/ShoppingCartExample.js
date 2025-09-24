@@ -24,24 +24,26 @@ function ShoppingCartExample() {
   const [selectedProduct, setSelectedProduct] = useState('');
 
   const handleAddToCart = () => {
-    const product = SAMPLE_PRODUCTS.find(p => p.id === parseInt(selectedProduct));
+    const product = SAMPLE_PRODUCTS.find(
+      p => p.id === parseInt(selectedProduct)
+    );
     if (product) {
       addItem(product);
     }
   };
 
   return (
-    <div className="shopping-cart-example">
+    <div className='shopping-cart-example'>
       <h3>쇼핑 카트 Context 예제</h3>
-      
-      <div className="product-section">
+
+      <div className='product-section'>
         <h4>상품 추가</h4>
-        <div className="add-product">
+        <div className='add-product'>
           <select
             value={selectedProduct}
-            onChange={(e) => setSelectedProduct(e.target.value)}
+            onChange={e => setSelectedProduct(e.target.value)}
           >
-            <option value="">상품을 선택하세요</option>
+            <option value=''>상품을 선택하세요</option>
             {SAMPLE_PRODUCTS.map(product => (
               <option key={product.id} value={product.id}>
                 {product.name} - {product.price.toLocaleString()}원
@@ -54,58 +56,64 @@ function ShoppingCartExample() {
         </div>
       </div>
 
-      <div className="cart-section">
+      <div className='cart-section'>
         <h4>장바구니 ({getTotalItems()}개 상품)</h4>
         {items.length === 0 ? (
           <p>장바구니가 비어있습니다.</p>
         ) : (
-          <div className="cart-items">
+          <div className='cart-items'>
             {items.map(item => (
-              <div key={item.id} className="cart-item">
-                <span className="item-name">{item.name}</span>
-                <div className="quantity-controls">
-                  <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>
+              <div key={item.id} className='cart-item'>
+                <span className='item-name'>{item.name}</span>
+                <div className='quantity-controls'>
+                  <button
+                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                  >
                     -
                   </button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>
+                  <button
+                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                  >
                     +
                   </button>
                 </div>
-                <span className="item-price">
+                <span className='item-price'>
                   {(item.price * item.quantity).toLocaleString()}원
                 </span>
                 <button
                   onClick={() => removeItem(item.id)}
-                  className="remove-btn"
+                  className='remove-btn'
                 >
                   삭제
                 </button>
               </div>
             ))}
-            <div className="cart-total">
+            <div className='cart-total'>
               <strong>총 금액: {getTotalPrice().toLocaleString()}원</strong>
             </div>
-            <button onClick={clearCart} className="clear-cart-btn">
+            <button onClick={clearCart} className='clear-cart-btn'>
               장바구니 비우기
             </button>
           </div>
         )}
       </div>
 
-      <div className="code-example">
+      <div className='code-example'>
         <strong>쇼핑 카트 Context 사용법:</strong>
         <br />
-        <pre style={{
-          background: '#f8f9fa',
-          padding: '15px',
-          borderRadius: '6px',
-          overflow: 'auto',
-          fontSize: '14px',
-          fontFamily: 'monospace',
-          border: '1px solid #e9ecef',
-          margin: '10px 0'
-        }}>
+        <pre
+          style={{
+            background: '#f8f9fa',
+            padding: '15px',
+            borderRadius: '6px',
+            overflow: 'auto',
+            fontSize: '14px',
+            fontFamily: 'monospace',
+            border: '1px solid #e9ecef',
+            margin: '10px 0',
+          }}
+        >
           {`// 쇼핑 카트 Context 사용
 function ProductCard({ product }) {
   const { addItem } = useShoppingCart();

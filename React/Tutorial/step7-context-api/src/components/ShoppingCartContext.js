@@ -7,7 +7,7 @@ const ShoppingCartContext = createContext();
 export function ShoppingCartProvider({ children }) {
   const [items, setItems] = useState([]);
 
-  const addItem = useCallback((product) => {
+  const addItem = useCallback(product => {
     setItems(prev => {
       const existingItem = prev.find(item => item.id === product.id);
       if (existingItem) {
@@ -21,28 +21,29 @@ export function ShoppingCartProvider({ children }) {
     });
   }, []);
 
-  const removeItem = useCallback((productId) => {
+  const removeItem = useCallback(productId => {
     setItems(prev => prev.filter(item => item.id !== productId));
   }, []);
 
-  const updateQuantity = useCallback((productId, quantity) => {
-    if (quantity <= 0) {
-      removeItem(productId);
-      return;
-    }
-    setItems(prev =>
-      prev.map(item =>
-        item.id === productId ? { ...item, quantity } : item
-      )
-    );
-  }, [removeItem]);
+  const updateQuantity = useCallback(
+    (productId, quantity) => {
+      if (quantity <= 0) {
+        removeItem(productId);
+        return;
+      }
+      setItems(prev =>
+        prev.map(item => (item.id === productId ? { ...item, quantity } : item))
+      );
+    },
+    [removeItem]
+  );
 
   const clearCart = useCallback(() => {
     setItems([]);
   }, []);
 
   const getTotalPrice = useCallback(() => {
-    return items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return items.reduce((total, item) => total + item.price * item.quantity, 0);
   }, [items]);
 
   const getTotalItems = useCallback(() => {
@@ -70,7 +71,9 @@ export function ShoppingCartProvider({ children }) {
 export function useShoppingCart() {
   const context = useContext(ShoppingCartContext);
   if (!context) {
-    throw new Error('useShoppingCart must be used within a ShoppingCartProvider');
+    throw new Error(
+      'useShoppingCart must be used within a ShoppingCartProvider'
+    );
   }
   return context;
 }

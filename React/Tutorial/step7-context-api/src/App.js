@@ -10,13 +10,13 @@ import ContextPatterns from './components/ContextPatterns';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className='App'>
+      <header className='App-header'>
         <h1>React 7단계: Context API와 전역 상태 관리</h1>
         <p>Context API를 사용한 전역 상태 관리와 모범 사례를 학습합니다</p>
       </header>
 
-      <main className="App-main">
+      <main className='App-main'>
         <ThemeProvider>
           <UserProvider>
             <ShoppingCartProvider>

@@ -8,7 +8,7 @@ export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const login = useCallback(async (credentials) => {
+  const login = useCallback(async credentials => {
     setIsLoading(true);
     try {
       // 실제로는 API 호출
@@ -19,8 +19,6 @@ export function UserProvider({ children }) {
         email: credentials.email,
         avatar: '👤',
       });
-    } catch (error) {
-      throw error;
     } finally {
       setIsLoading(false);
     }
@@ -30,7 +28,7 @@ export function UserProvider({ children }) {
     setUser(null);
   }, []);
 
-  const updateProfile = useCallback((updates) => {
+  const updateProfile = useCallback(updates => {
     setUser(prev => ({ ...prev, ...updates }));
   }, []);
 
@@ -43,11 +41,7 @@ export function UserProvider({ children }) {
     updateProfile,
   };
 
-  return (
-    <UserContext.Provider value={value}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
 // 3. Custom Hook
